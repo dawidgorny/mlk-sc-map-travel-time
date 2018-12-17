@@ -3,6 +3,7 @@ const webpack = require('webpack');
 
 module.exports = env => {
   return {
+    // mode: 'production',
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
@@ -16,7 +17,7 @@ module.exports = env => {
       path: path.resolve(__dirname, 'dist/')
     },
     module: {
-      noParse: (content) => /mapbox-gl/.test(content)
+      // noParse: /mapbox-gl/
     },
     plugins: []
   };

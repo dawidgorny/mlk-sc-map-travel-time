@@ -1,4 +1,4 @@
-const mapboxgl = require('mapbox-gl');
+// import mapboxgl from 'mapbox-gl';
 // const request = require('request');
 const Seq = require('seq');
 
