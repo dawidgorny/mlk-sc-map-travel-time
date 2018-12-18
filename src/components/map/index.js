@@ -6,7 +6,7 @@ export default class Map extends Component {
   constructor (id, state, emit) {
     super(id, state, emit);
     this.local = state.components[id] = merge([{
-      style: 'mapbox://styles/mapbox/dark-v9',
+      style: 'mapbox://styles/mapbox/light-v9',
       center: [19.023632, 50.234461],
       zoom: 8.0,
       minZoom: null,
