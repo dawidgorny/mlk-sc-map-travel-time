@@ -1,15 +1,13 @@
-'use strict'
+import FrontentApp from './src/frontend-app';
 
 const createApp = require('dg-utils/frontend/create-app');
-const createFrontendApp = require('./src/create-frontend-app');
 
-(function (exports) {
-  exports.create = function (mapContainer, mapStyle, mapboxAccessToken) {
-    const frontend = createFrontendApp(mapContainer, mapStyle, mapboxAccessToken);
-    const app = createApp(frontend);
-  };
+export default function create (mapContainer, mapStyle, mapboxAccessToken) {
+  const frontend = new FrontentApp(mapContainer, mapStyle, mapboxAccessToken);
+  const app = createApp(frontend);
+  return frontend;
+}
 
-  if (window) {
-    window.travelTimeMap = exports;
-  }
-})(typeof exports === 'undefined' ? this['travelTimeMap'] = {} : exports);
+if (window) {
+  window.travelTimeMap = { create };
+}

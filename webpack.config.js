@@ -4,8 +4,8 @@ const webpack = require('webpack');
 module.exports = env => {
   return {
     // mode: 'production',
-    mode: 'development',
-    devtool: 'inline-source-map',
+    // mode: 'development',
+    devtool: 'source-map',
     devServer: {
       contentBase: './examples/'
     },
@@ -18,6 +18,35 @@ module.exports = env => {
     },
     module: {
       // noParse: /mapbox-gl/
+      rules: [
+        {
+          test: /\.css$/,
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: 'style-loader/useable',
+              options: {
+                singleton: true
+              }
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 1,
+                hashPrefix: 'hash',
+                localIdentName: '[local]__[path][name]__mlk-sc-map-travel-time--[hash:base64:5]'
+              }
+            },
+            {
+              loader: 'sass-loader'
+            },
+            {
+              loader: 'postcss-loader'
+            }
+          ]
+        }
+      ]
     },
     plugins: []
   };

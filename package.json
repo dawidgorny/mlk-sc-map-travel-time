@@ -7,9 +7,9 @@
   ],
   "main": "index.js",
   "scripts": {
-    "watch": "webpack --watch --config webpack.config.js",
-    "start": "webpack-dev-server --open --config webpack.config.js",
-    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --mode development --watch --config webpack.config.js",
+    "start": "webpack-dev-server  --mode development --config webpack.config.js",
+    "build": "webpack --mode production --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,11 +28,21 @@
   "homepage": "https://github.com/dawidgorny/mlk-sc-map-travel-time#readme",
   "dependencies": {},
   "devDependencies": {
+    "css-loader": "^2.0.1",
+    "cssnano": "^4.1.7",
     "dg-utils": "^0.3.0",
     "domready": "^1.0.8",
     "mapbox-gl": "^0.52.0-beta.2",
-    "request": "^2.88.0",
-    "seq": "^0.3.5",
+    "nanohtml": "^1.4.0",
+    "node-sass": "^4.11.0",
+    "postcss": "^7.0.7",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.1",
+    "postcss-preset-env": "^6.5.0",
+    "sass": "^1.15.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
