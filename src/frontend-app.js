@@ -1,24 +1,27 @@
-import HexTooltipComponent from './components/hex-tooltip';
+import choo from 'choo';
+import html from 'choo/html';
+import Map from './components/map';
+import mainStore from './stores/main';
+import mainView from './views/main';
 import styles from './app.css';
 
 styles.use();
 
-const defaultCenter = [19.023632, 50.234461];
-const defaultZoom = 8.0;
-const minZoom = null;
-const maxZoom = null;
-const maxBounds = null;
-
-const baseUrl = location.origin + location.pathname;
-
 export default class FrontentApp {
-  constructor (mapContainer, mapStyle, mapboxAccessToken) {
-    mapboxgl.accessToken = mapboxAccessToken;
+  constructor (mapContainer, mapStyle) {
     this.mapContainer = mapContainer;
-    this.mapStyle = mapStyle;
-    this.mapInstance = null;
-    this.isInitialized = false;
-    this.isMapLoaded = false;
+    this.app = choo();
+    if (process.env.NODE_ENV !== 'production') {
+      this.app.use(require('choo-devtools')());
+    }
+    this.app.use(mainStore);
+    this.app.use((state, emitter) => {
+      state.components['map'] = {
+        style: mapStyle
+      };
+    });
+    this.app.route('*', mainView);
+    this.app.mount(this.mapContainer);
   }
 
   _loadAssets (assets) {
@@ -27,32 +30,9 @@ export default class FrontentApp {
 
   _init (assets) {
     
-  };
+  }
 
   init () {
-    this.mapInstance = new mapboxgl.Map({
-      container: this.mapContainer,
-      style: this.mapStyle,
-      center: defaultCenter,
-      zoom: defaultZoom,
-      minZoom: minZoom,
-      maxZoom: maxZoom,
-      maxBounds: maxBounds
-    });
-    this.mapInstance.scrollZoom.disable();
-    const nav = new mapboxgl.NavigationControl({
-      showCompass: false,
-      showZoom: true
-    });
-    this.mapInstance.addControl(nav, 'top-right');
-    this.mapInstance.on('load', () => {
-      this.isMapLoaded = true;
-      this._loadAssets((assets) => {
-        this._init(assets);
-      });
-    });
-
-    const hexTooltip = new HexTooltipComponent();
-    document.body.appendChild(hexTooltip.dom);
+    
   }
 }
