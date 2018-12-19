@@ -1,0 +1,45 @@
+$fade-out-duration: 1s
+
+:local .loader-anim {
+  width: 170px;
+  height: 25px;
+  background: url('loader.gif') no-repeat;
+}
+
+:local {
+  @-webkit-keyframes fade-out-animation {
+    0%   { display: block; visibility: visible; z-index: 0; }
+    99%   { display: block; visibility: visible; z-index: 0; }
+    100% { display: none; visibility: hidden; z-index: -5; }
+  }
+  @-moz-keyframes fade-out-animation {
+    0%   { display: block; visibility: visible; z-index: 0; }
+    99%   { display: block; visibility: visible; z-index: 0; }
+    100% { display: none; visibility: hidden; z-index: -5; }
+  }
+  @-o-keyframes fade-out-animation {
+    0%   { display: block; visibility: visible; z-index: 0; }
+    99%   { display: block; visibility: visible; z-index: 0; }
+    100% { display: none; visibility: hidden; z-index: -5; }
+  }
+  @keyframes fade-out-animation {
+    0%   { display: block; visibility: visible; z-index: 0; }
+    99%   { display: block; visibility: visible; z-index: 0; }
+    100% { display: none; visibility: hidden; z-index: -5; }
+  }
+  .fade-out {
+    -webkit-transition: opacity $fade-out-duration ease-in-out;
+    -moz-transition: opacity $fade-out-duration ease-in-out;
+    -ms-transition: opacity $fade-out-duration ease-in-out;
+    -o-transition: opacity $fade-out-duration ease-in-out;
+    transition: opacity $fade-out-duration ease-in-out;
+
+    opacity: 0;
+
+    animation: fade-out-animation $fade-out-duration forwards ;
+    -webkit-animation: fade-out-animation $fade-out-duration forwards;
+    -moz-animation: fade-out-animation $fade-out-duration forwards;
+    -ms-animation: fade-out-animation $fade-out-duration forwards;
+    -o-animation: fade-out-animation $fade-out-duration forwards;
+  }
+}

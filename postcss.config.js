@@ -7,6 +7,7 @@ module.exports = {
     'postcss-preset-env': {},
     // 'autoprefixer': {},
     'postcss-nested': {},
+    'postcss-url': {},
     'cssnano': {}
   }
 };

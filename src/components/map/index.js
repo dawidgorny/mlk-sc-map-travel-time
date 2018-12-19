@@ -1,18 +1,29 @@
 import html from 'choo/html';
 import Component from 'choo/component';
+import resl from 'resl';
 import merge from '../../utils/merge';
 
 export default class Map extends Component {
   constructor (id, state, emit) {
     super(id, state, emit);
+    this.state = state;
+    this.emit = emit;
     this.local = state.components[id] = merge([{
       style: 'mapbox://styles/mapbox/light-v9',
       center: [19.023632, 50.234461],
       zoom: 8.0,
       minZoom: null,
       maxZoom: null,
-      maxBounds: null
+      maxBounds: null,
+      mapLoading: true,
+      assetsLoading: true
     }, state.components && state.components[id] ? state.components[id] : {}]);
+    this.setState();
+    this.assets = {};
+  }
+
+  setState () {
+    
   }
 
   load (element) {
@@ -32,22 +43,51 @@ export default class Map extends Component {
     });
     this.map.addControl(nav, 'top-right');
     this.map.on('load', () => {
-      this.isMapLoaded = true;
-      // this._loadAssets((assets) => {
-        // this._init(assets);
-      // });
+      this.local.mapLoading = false;
+      this.emit('map:load');
+      this._loadAssets();
     });
   }
 
-  update (center) {
-    // if (center.join() !== this.local.center.join()) {
-      // this.map.setCenter(center);
+  update () {
+    let dirty = false;
+
+    // if (this.local.visible !== this.state.main.visible) {
+      // dirty = true;
     // }
-    return false;
+
+    if (dirty) {
+      this.setState();
+    }
+    return dirty;
   }
 
-  createElement (center) {
-    // this.local.center = center;
+  createElement () {
     return html`<div class="w-100 h-100"></div>`;
+  }
+
+  _loadAssets () {
+    resl({
+      manifest: require('./assets-manifest'),
+      onDone: (assets) => {
+        this.assets = assets;
+        this.local.assetsLoading = false;
+        this.emit('map:assetsLoad', assets);
+        this._prepareData(assets);
+      },
+      onProgress: (progress, message) => {
+        if (process.env.NODE_ENV !== 'production') {
+          console.log((progress * 100) + '%');
+        }
+      },
+      onError: (err) => {
+        console.error(err);
+        this.emit('map:fatalError');
+      }
+    });
+  }
+
+  _prepareData (assets) {
+
   }
 }

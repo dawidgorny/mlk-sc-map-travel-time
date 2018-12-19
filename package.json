@@ -26,8 +26,7 @@
     "url": "https://github.com/dawidgorny/mlk-sc-map-travel-time/issues"
   },
   "homepage": "https://github.com/dawidgorny/mlk-sc-map-travel-time#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "choo": "^6.13.1",
     "choo-devtools": "^2.5.1",
@@ -35,6 +34,7 @@
     "cssnano": "^4.1.7",
     "dg-utils": "^0.3.0",
     "domready": "^1.0.8",
+    "fail-nicely": "^2.0.0",
     "mapbox-gl": "^0.52.0-beta.2",
     "nanohtml": "^1.4.0",
     "node-sass": "^4.11.0",
@@ -43,6 +43,9 @@
     "postcss-loader": "^3.0.0",
     "postcss-nested": "^4.1.1",
     "postcss-preset-env": "^6.5.0",
+    "postcss-url": "^8.0.0",
+    "request-promise": "^4.2.2",
+    "resl": "^1.0.3",
     "sass": "^1.15.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
