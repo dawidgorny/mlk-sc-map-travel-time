@@ -37,6 +37,7 @@
     "fail-nicely": "^2.0.0",
     "mapbox-gl": "^0.52.0-beta.2",
     "nanohtml": "^1.4.0",
+    "nanostate": "^1.2.1",
     "node-sass": "^4.11.0",
     "postcss": "^7.0.7",
     "postcss-import": "^12.0.1",
