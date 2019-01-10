@@ -1,0 +1,257 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "pl. Rostka",
+        "place-id": "312939122099638",
+        "x_lng": 19.011403,
+        "y_lat": 50.25455,
+        "name": "Pałac Młodzieży im. prof. Aleksandra Kamińskiego w Katowicach",
+        "layer_id": "hexgrid-0"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.011403,
+          50.25455
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "rondo Ziętka",
+        "place-id": "202111499818994",
+        "x_lng": 19.023562,
+        "y_lat": 50.264589,
+        "name": "Rondo Sztuki",
+        "layer_id": "hexgrid-1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.023562,
+          50.264589
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "Trzy Stawy",
+        "place-id": "119773141689786",
+        "x_lng": 19.043048,
+        "y_lat": 50.245338,
+        "name": "Sztauwajery",
+        "layer_id": "hexgrid-2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.043048,
+          50.245338
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "Strefa Kultury",
+        "place-id": "334195793031",
+        "x_lng": 19.03458,
+        "y_lat": 50.263555,
+        "name": "Muzeum Śląskie",
+        "layer_id": "hexgrid-3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.03458,
+          50.263555
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "pl. Sejmu Śląskiego",
+        "place-id": "179603073902",
+        "x_lng": 19.023011,
+        "y_lat": 50.252944,
+        "name": "Katowice Miasto Ogrodów",
+        "layer_id": "hexgrid-4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.023011,
+          50.252944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "pl. Wolności",
+        "place-id": "_filharmonia_slaska",
+        "x_lng": 19.013837,
+        "y_lat": 50.260673,
+        "name": "Filharmonia Śląska",
+        "layer_id": "hexgrid-5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.013837,
+          50.260673
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "Rynek",
+        "place-id": "201695066515967",
+        "x_lng": 19.022718,
+        "y_lat": 50.259712,
+        "name": "Teatr Śląski",
+        "layer_id": "hexgrid-6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.022718,
+          50.259712
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "pl. Grunwaldzki",
+        "place-id": "199178653443636",
+        "x_lng": 19.020174,
+        "y_lat": 50.268636,
+        "name": "Kino Kosmos",
+        "layer_id": "hexgrid-7"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.020174,
+          50.268636
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "Raciborska",
+        "place-id": "105251459590505",
+        "x_lng": 19.001117,
+        "y_lat": 50.254405,
+        "name": "Akademia Sztuk Pięknych",
+        "layer_id": "hexgrid-8"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.001117,
+          50.254405
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "Baildon",
+        "place-id": "222994523564",
+        "x_lng": 19.00622,
+        "y_lat": 50.264808,
+        "name": "MegaClub",
+        "layer_id": "hexgrid-9"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.00622,
+          50.264808
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "pl. Rady Europy",
+        "place-id": "137853539570833",
+        "x_lng": 19.03176,
+        "y_lat": 50.252381,
+        "name": "Biblioteka Śląska",
+        "layer_id": "hexgrid-10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.03176,
+          50.252381
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "Muchowiec",
+        "place-id": "536905763044408",
+        "x_lng": 19.026367,
+        "y_lat": 50.23366,
+        "name": "Muchowiec",
+        "layer_id": "hexgrid-11"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.026367,
+          50.23366
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "Park Śląski",
+        "place-id": "_park_slaski_pola_marsowe",
+        "x_lng": 18.976133,
+        "y_lat": 50.285455,
+        "name": "Park Śląski (Pola Marsowe)",
+        "layer_id": "hexgrid-13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.976133,
+          50.285455
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "place_name": "Mariacka",
+        "place-id": "_mariacka",
+        "x_lng": 19.026009,
+        "y_lat": 50.257491,
+        "name": "Mariacka",
+        "layer_id": "hexgrid-14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.026009,
+          50.257491
+        ]
+      }
+    }
+  ]
+}
