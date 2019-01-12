@@ -8,15 +8,13 @@ import nanostate from 'nanostate';
 export default class Dropdown extends Component {
   constructor (id, state, emit) {
     super(id, state, emit);
+    this.id = id;
     this.state = state;
     this.emit = emit;
     this.local = state.components[id] = merge([{
-      text: 'Select',
-      value: 'CA',
-      items: [ // [label, value]
-        ['Iowa', 'IA'],
-        ['California', 'CA']
-      ]
+      text: '',
+      value: '',
+      items: [ /* [label, value] */ ]
     }, state.components && state.components[id] ? state.components[id] : {}]);
     this.setState();
     style.use();
@@ -47,14 +45,19 @@ export default class Dropdown extends Component {
     if (dirty) {
       this.setState();
     }
-    return dirty;
+    return true;
   }
 
   createElement () {
     const s = this.local;
+
+    const onSelectChange = (e) => {
+      this.emit(`${this.id}:valueChange`, e.target.value);
+    };
+
     return html`
     <div class="ui search dropdown selection active visible" style="border: 1px solid black;">
-      <select>
+      <select onchange=${onSelectChange}>
         <option value="">Select</option>
         ${raw(s.items.map((it) => `<option value="${it[1]}">${it[0]}</option>`).join(''))}
       </select>
