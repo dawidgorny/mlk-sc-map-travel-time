@@ -8,6 +8,8 @@ export default function mainStore (state, emitter) {
   emitter.on('DOMContentLoaded', function () {
     emitter.on('map:load', mapLoad);
     emitter.on('map:assetsLoad', mapAssetsLoad);
+    emitter.on('mode-switch:valueChange', modeSwitchValueChange);
+    emitter.on('destination:valueChange', destinationValueChange);
     emitter.on('address-search:value', addressSearchValue);
   });
 
@@ -18,13 +20,23 @@ export default function mainStore (state, emitter) {
 
   function mapAssetsLoad (assets) {
     state.main.loading = false;
+    state.components['destination'].items = state.components['map'].destinations.map((d) => [d.label, d.id]);
+    render();
+  }
+
+  function modeSwitchValueChange (value) {
+    state.components['map'].mode = value;
+    render();
+  }
+
+  function destinationValueChange (value) {
+    state.components['map'].destinationId = value;
     render();
   }
 
   function addressSearchValue (value, label) {
     state.components['map'].hilightCoordinates = value;
-    // emitter.emit('map:setHilight', value, label);
-    // render();
+    render();
   }
   
   function render () {

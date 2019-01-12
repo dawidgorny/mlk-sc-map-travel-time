@@ -5,6 +5,7 @@ import merge from '../../utils/merge';
 
 import layerKatowicePolygon from './layer-katowice-polygon';
 import layerHexgrid from './layer-hexgrid';
+import hexColor from './hex-color';
 
 export default class Map extends Component {
   constructor (id, state, emit) {
@@ -20,12 +21,16 @@ export default class Map extends Component {
       maxBounds: null,
       mapLoading: true,
       assetsLoading: true,
-      hilightCoordinates: null
+      hilightCoordinates: null,
+      destinations: [],
+      destinationId: null,
+      mode: 'transit'
     }, state.components && state.components[id] ? state.components[id] : {}]);
     this.setState();
     this.assets = {};
 
-    // emit.on('map:setHilight', (coordinates, label) => { this.setHilight(coordinates, label); });
+    this._currentDestinationId = this.local.destinationId;
+    this._currentMode = this.local.mode;
   }
 
   setState () {
@@ -58,7 +63,9 @@ export default class Map extends Component {
 
   update () {
     let dirty = false;
-
+    if (this.local.mode !== this._currentMode || this.local.destinationId !== this._currentDestinationId) {
+      this.setDestination(this.local.mode, this.local.destinationId);
+    }
     this.setHilight(this.local.hilightCoordinates);
 
     // if (this.local.visible !== this.state.main.visible) {
@@ -95,8 +102,20 @@ export default class Map extends Component {
   }
 
   _loadAssets2 () {
-    let manifest = this.assets['destinations.geojson'].features.map((f) => { return { type: 'text', src: `destinations-data/${f.properties['place-id']}-transit.json`, parser: JSON.parse }; });
-    manifest = manifest.concat(this.assets['destinations.geojson'].features.map((f) => { return { type: 'text', src: `destinations-data/${f.properties['place-id']}-driving.json`, parser: JSON.parse }; }));
+    /**
+     * Prepare list of destinations
+     */
+    this.local.destinations = this.assets['destinations.geojson'].features.map((f) => {
+      return { label: f.properties['name'], id: f.properties['place-id'] };
+    });
+
+    let manifestArr = this.local.destinations.map((dest) => { return { type: 'text', src: `destinations-data/${dest.id}-transit.json`, parser: JSON.parse }; });
+    manifestArr = manifestArr.concat(this.local.destinations.map((dest) => { return { type: 'text', src: `destinations-data/${dest.id}-driving.json`, parser: JSON.parse }; }));
+
+    let manifest = {};
+    manifestArr.forEach((a) => {
+      manifest[a.src] = a;
+    });
     
     resl({
       manifest,
@@ -120,6 +139,18 @@ export default class Map extends Component {
 
   _prepareData (assets) {
     /**
+     * Process data files and calculate layer colors etc.
+     */
+    this.assets['destinations.geojson'].features.forEach((f) => {
+      this.assets[`destinations-data/${f.properties['place-id']}-transit.json`].forEach((d) => {
+        d.color = hexColor('transit', d['duration_value']);
+      });
+      this.assets[`destinations-data/${f.properties['place-id']}-driving.json`].forEach((d) => {
+        d.color = hexColor('driving', d['duration_value']);
+      });
+    });
+
+    /**
      * Add katowice boundary to the map
      */
     const katowicePolygonLayer = this.map.addLayer(layerKatowicePolygon(assets['katowice-polygon.geojson']));
@@ -128,13 +159,45 @@ export default class Map extends Component {
     hexgrid.layerDef.source = hexgrid.sourceDef;
     this.map.addLayer(hexgrid.layerDef, 'airport-label');
 
-    setTimeout(() => {
 
-    }, 2000);
+  }
 
+  setDestination (mode, destinationId) {
+    const dataSource = `destinations-data/${destinationId}-${mode}.json`;
+    if (!this.assets[dataSource]) return;
+
+    let geojson = this.assets['hexgrid.geojson'];
+    let data = this.assets[dataSource];
+
+    this._currentMode = mode;
+    this._currentDestinationId = destinationId;
+
+    for (let i = 0; i < geojson.features.length; i++) {
+      const f = geojson.features[i];
+      const d = data[i];
+      const prop = f.properties;
+      prop['color'] = d.color;
+      prop['target_color'] = d.color;
+    }
+
+    this.map.getSource('hexgrid').setData(geojson);
   }
 
   setHilight (coordinates, label) {
-    console.log(coordinates, label);
+    if (coordinates) {
+      this.map.flyTo({
+        center: coordinates,
+        zoom: 11.5,
+        speed: 0.5
+      });
+    } else {
+      this.map.flyTo({
+        center: [19.023632, 50.234461],
+        zoom: 10,
+        speed: 0.7
+      });
+    }
   }
+
+
 }

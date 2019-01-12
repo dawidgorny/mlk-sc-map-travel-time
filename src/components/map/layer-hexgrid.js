@@ -2,7 +2,7 @@ import calculateCentroid from '@turf/centroid';
 
 const parkTime = -7;
 
-export default function layerHexgrid (layerId, data, visibility = 'visible') {
+export default function layerHexgrid (layerId, geojson, data, visibility = 'visible') {
   /* var durationMax = 0;
   R.forEach((o) => {
     durationMax = Math.max(durationMax, o['properties']['duration_value']);
@@ -14,7 +14,7 @@ export default function layerHexgrid (layerId, data, visibility = 'visible') {
   var level3Color = 'rgb(255,65,51)';
 
   // data['features'] = R.map((o) => {
-  data['features'].forEach((o) => {
+  geojson['features'].forEach((o) => {
     if (!o['properties'].hasOwnProperty('cell-id')) {
       return;
     }
@@ -145,7 +145,7 @@ export default function layerHexgrid (layerId, data, visibility = 'visible') {
     sourceId: layerId + '-source',
     sourceDef: {
       'type': 'geojson',
-      'data': data
+      'data': geojson
     },
     layerDef: {
       'id': layerId,
