@@ -77,16 +77,16 @@ export default class AddressSearch extends Component {
       this.local.text = label;
       this.local.value = value;
       this.emit(`${this.id}:value`, value, label);
-      return false;
+      return true;
     };
 
     return html`
-    <div class="" style="border: 1px solid black;">
+    <div class="" style="border: 1px solid black; height: 120px;">
       <input class="" autocomplete="off" tabindex="0" value="${s.text}" onchange=${onInputChange} onkeyup=${onInputChange}>
       <input class="" autocomplete="off" tabindex="0" value="${JSON.stringify(s.value)}">
       <div class="">Address</div>
       <div class="" tabindex="-1" style="display: block !important;">
-        ${s.items.map((it) => html`<div class="${it[1] === s.value ? 'selected' : ''}" data-value="${it[1]}" onclick="${onItemClick}">${it[0]}</div>`)}
+        ${s.items.map((it) => html`<div class="${it[1] === s.value ? 'selected' : ''}" data-value="${it[1]}" onclick=${onItemClick}>${it[0]}</div>`)}
       </div>
     </div>`;
   }
