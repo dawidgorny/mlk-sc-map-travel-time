@@ -42,8 +42,6 @@ export default class AddressSearch extends Component {
 
   update () {
     let dirty = this.isDirty | false;
-    console.log(dirty);
-
 
     if (dirty) {
       this.setState();
@@ -64,7 +62,6 @@ export default class AddressSearch extends Component {
       if (searchDelay) clearTimeout(searchDelay);
       searchDelay = setTimeout(async () => {
         let ret = await this._search(query);
-        console.log(ret);
         s.items = ret.map((it) => {
           return [it.label, JSON.stringify(it.coordinates)];
         });
