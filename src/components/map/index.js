@@ -16,10 +16,13 @@ export default class Map extends Component {
       maxZoom: null,
       maxBounds: null,
       mapLoading: true,
-      assetsLoading: true
+      assetsLoading: true,
+      hilightCoordinates: null
     }, state.components && state.components[id] ? state.components[id] : {}]);
     this.setState();
     this.assets = {};
+
+    // emit.on('map:setHilight', (coordinates, label) => { this.setHilight(coordinates, label); });
   }
 
   setState () {
@@ -27,6 +30,7 @@ export default class Map extends Component {
   }
 
   load (element) {
+    mapboxgl.accessToken = this.local.mapboxAccessToken;
     this.map = new mapboxgl.Map({
       container: element,
       style: this.local.style,
@@ -52,6 +56,8 @@ export default class Map extends Component {
   update () {
     let dirty = false;
 
+    this.setHilight(this.local.hilightCoordinates);
+
     // if (this.local.visible !== this.state.main.visible) {
       // dirty = true;
     // }
@@ -70,10 +76,32 @@ export default class Map extends Component {
     resl({
       manifest: require('./assets-manifest'),
       onDone: (assets) => {
-        this.assets = assets;
+        this.assets = merge([this.assets, assets]);
+        this._loadAssets2();
+      },
+      onProgress: (progress, message) => {
+        if (process.env.NODE_ENV !== 'production') {
+          console.log((progress * 100) + '%');
+        }
+      },
+      onError: (err) => {
+        console.error(err);
+        this.emit('map:fatalError');
+      }
+    });
+  }
+
+  _loadAssets2 () {
+    let manifest = this.assets['destinations.geojson'].features.map((f) => { return { type: 'text', src: `destinations-data/${f.properties['place-id']}-transit.geojson`, parser: JSON.parse }; });
+    manifest = manifest.concat(this.assets['destinations.geojson'].features.map((f) => { return { type: 'text', src: `destinations-data/${f.properties['place-id']}-driving.geojson`, parser: JSON.parse }; }));
+    
+    resl({
+      manifest,
+      onDone: (assets) => {
+        this.assets = merge([this.assets, assets]);
         this.local.assetsLoading = false;
-        this.emit('map:assetsLoad', assets);
-        this._prepareData(assets);
+        this.emit('map:assetsLoad', this.assets);
+        this._prepareData(this.assets);
       },
       onProgress: (progress, message) => {
         if (process.env.NODE_ENV !== 'production') {
@@ -88,6 +116,10 @@ export default class Map extends Component {
   }
 
   _prepareData (assets) {
+    
+  }
 
+  setHilight (coordinates, label) {
+    console.log(coordinates, label);
   }
 }
