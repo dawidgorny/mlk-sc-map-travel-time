@@ -10,6 +10,7 @@ export default function mainStore (state, emitter) {
   emitter.on('DOMContentLoaded', function () {
     emitter.on('map:load', mapLoad);
     emitter.on('map:assetsLoad', mapAssetsLoad);
+    emitter.on('address-search:value', addressSearchValue);
   });
 
   function mapLoad () {
@@ -20,6 +21,12 @@ export default function mainStore (state, emitter) {
   function mapAssetsLoad (assets) {
     state.main.loading = false;
     render();
+  }
+
+  function addressSearchValue (value, label) {
+    state.components['map'].hilightCoordinates = value;
+    // emitter.emit('map:setHilight', value, label);
+    // render();
   }
   
   function render () {

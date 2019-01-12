@@ -8,7 +8,7 @@ import styles from './app.css';
 styles.use();
 
 export default class FrontentApp {
-  constructor (mapContainer, mapStyle) {
+  constructor (mapContainer, mapStyle, mapboxAccessToken) {
     this.mapContainer = mapContainer;
     this.app = choo();
     if (process.env.NODE_ENV !== 'production') {
@@ -17,7 +17,11 @@ export default class FrontentApp {
     this.app.use(mainStore);
     this.app.use((state, emitter) => {
       state.components['map'] = {
+        mapboxAccessToken,
         style: mapStyle
+      };
+      state.components['address-search'] = {
+        mapboxAccessToken
       };
     });
     this.app.route('*', mainView);
