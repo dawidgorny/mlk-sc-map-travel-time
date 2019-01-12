@@ -1,0 +1,6 @@
+:local .mode-switch a {
+  opacity: 0.5;
+}
+:local a.active {
+  opacity: 1;
+}
