@@ -1,6 +1,4 @@
 export default function mainStore (state, emitter) {
-  console.log(state);
-  
   state.components = {};
   state.main = {
     loading: true
