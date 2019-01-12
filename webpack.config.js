@@ -45,6 +45,18 @@ module.exports = env => {
               loader: 'postcss-loader'
             }
           ]
+        },
+        {
+          test: /\.(png|svg|jpg|gif)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: 'images/[path][name].[ext]?[hash]',
+                context: 'src'
+              }
+            }
+          ]
         }
       ]
     },
