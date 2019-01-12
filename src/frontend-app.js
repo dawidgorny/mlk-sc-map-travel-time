@@ -1,6 +1,4 @@
 import choo from 'choo';
-import html from 'choo/html';
-import Map from './components/map';
 import mainStore from './stores/main';
 import mainView from './views/main';
 import styles from './app.css';
