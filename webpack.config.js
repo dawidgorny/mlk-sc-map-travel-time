@@ -7,7 +7,7 @@ module.exports = env => {
     // mode: 'development',
     devtool: 'source-map',
     devServer: {
-      contentBase: './examples/'
+      contentBase: './dist/'
     },
     entry: {
       'mlk-sc-map-travel-time': './index.js'
