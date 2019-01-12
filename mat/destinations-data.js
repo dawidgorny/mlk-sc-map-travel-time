@@ -24,6 +24,6 @@ for (let i = 0; i < destinations.length; i++) {
   let outTransit = contentTransit.features.map(mapProp);
   let outDriving = contentDriving.features.map(mapProp);
 
-  fs.writeFileSync(path.join(__dirname, `destinations-data/${placeId}-transit.geojson`), JSON.stringify(outTransit));
-  fs.writeFileSync(path.join(__dirname, `destinations-data/${placeId}-driving.geojson`), JSON.stringify(outDriving));
+  fs.writeFileSync(path.join(__dirname, `destinations-data/${placeId}-transit.json`), JSON.stringify(outTransit));
+  fs.writeFileSync(path.join(__dirname, `destinations-data/${placeId}-driving.json`), JSON.stringify(outDriving));
 }
