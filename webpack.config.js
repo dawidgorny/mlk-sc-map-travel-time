@@ -35,7 +35,8 @@ module.exports = env => {
                 modules: true,
                 importLoaders: 1,
                 hashPrefix: 'hash',
-                localIdentName: '[local]__[path][name]__mlk-sc-map-travel-time--[hash:base64:5]'
+                localIdentName: '[local]__[path][name]__mlk-sc-map-travel-time--[hash:base64:5]',
+                context: 'src'
               }
             },
             {
