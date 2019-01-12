@@ -8,5 +8,10 @@ module.exports = {
     type: 'text',
     src: 'destinations.geojson',
     parser: JSON.parse
+  },
+  'katowice-polygon.geojson': {
+    type: 'text',
+    src: 'katowice-polygon.geojson',
+    parser: JSON.parse
   }
 };

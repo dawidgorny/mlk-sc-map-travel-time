@@ -3,6 +3,9 @@ import Component from 'choo/component';
 import resl from 'resl';
 import merge from '../../utils/merge';
 
+import layerKatowicePolygon from './layer-katowice-polygon';
+import layerHexgrid from './layer-hexgrid';
+
 export default class Map extends Component {
   constructor (id, state, emit) {
     super(id, state, emit);
@@ -11,7 +14,7 @@ export default class Map extends Component {
     this.local = state.components[id] = merge([{
       style: 'mapbox://styles/mapbox/light-v9',
       center: [19.023632, 50.234461],
-      zoom: 8.0,
+      zoom: 10,
       minZoom: null,
       maxZoom: null,
       maxBounds: null,
@@ -92,8 +95,8 @@ export default class Map extends Component {
   }
 
   _loadAssets2 () {
-    let manifest = this.assets['destinations.geojson'].features.map((f) => { return { type: 'text', src: `destinations-data/${f.properties['place-id']}-transit.geojson`, parser: JSON.parse }; });
-    manifest = manifest.concat(this.assets['destinations.geojson'].features.map((f) => { return { type: 'text', src: `destinations-data/${f.properties['place-id']}-driving.geojson`, parser: JSON.parse }; }));
+    let manifest = this.assets['destinations.geojson'].features.map((f) => { return { type: 'text', src: `destinations-data/${f.properties['place-id']}-transit.json`, parser: JSON.parse }; });
+    manifest = manifest.concat(this.assets['destinations.geojson'].features.map((f) => { return { type: 'text', src: `destinations-data/${f.properties['place-id']}-driving.json`, parser: JSON.parse }; }));
     
     resl({
       manifest,
@@ -116,7 +119,19 @@ export default class Map extends Component {
   }
 
   _prepareData (assets) {
-    
+    /**
+     * Add katowice boundary to the map
+     */
+    const katowicePolygonLayer = this.map.addLayer(layerKatowicePolygon(assets['katowice-polygon.geojson']));
+
+    let hexgrid = layerHexgrid('hexgrid', assets['hexgrid.geojson'], 'visible');
+    hexgrid.layerDef.source = hexgrid.sourceDef;
+    this.map.addLayer(hexgrid.layerDef, 'airport-label');
+
+    setTimeout(() => {
+
+    }, 2000);
+
   }
 
   setHilight (coordinates, label) {
