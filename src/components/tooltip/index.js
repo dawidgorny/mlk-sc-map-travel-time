@@ -49,10 +49,12 @@ export default class TooltipSwitch extends Component {
     if (l.durationMood > 3) ico = IcoMood4Image;
 
     return html`
-    <div class="absolute top-0 left-0 w-50 ph5 ${l.visible ? '' : 'dn'} ${sl['tooltip']}">
-      <p class="bb">${l.districtName}</p>
-      <p>adresy w tym obszarze: <strong>${l.addressCount}</strong></p>
-      <p>czas dojazdu: <strong>${l.durationText}</strong><img src=${ico}></p>
+    <div class="absolute top-0 left-0 w-50 pt3 pb3 pl5 pr3 ${l.visible ? '' : 'dn'} ${sl['tooltip']}">
+      <p class="w-100 bb pb1 ma0 b" style="border-color: #10069F;">${l.districtName}</p>
+      <div class="mv2">
+        <p class="pa0 ma0">adresy w tym obszarze: <strong>${l.addressCount}</strong></p>
+        <p class="pa0 ma0 fl">czas dojazdu: <strong>${l.durationText}</strong></p><img class="ph1 fl ${sl['ico-mood']}" src=${ico}>
+      </div>
     </div>`;
   }
 }
