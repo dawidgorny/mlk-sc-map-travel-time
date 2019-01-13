@@ -7,6 +7,9 @@ import layerKatowicePolygon from './layer-katowice-polygon';
 import layerHexgrid from './layer-hexgrid';
 import hexColor from './hex-color';
 
+import Tooltip from '../tooltip';
+import LoadingOverlay from '../loading-overlay';
+
 export default class Map extends Component {
   constructor (id, state, emit) {
     super(id, state, emit);
@@ -79,7 +82,10 @@ export default class Map extends Component {
   }
 
   createElement () {
-    return html`<div class="w-100 h-100"></div>`;
+    return html`<div class="w-100 h-100">
+    ${this.state.cache(Tooltip, 'tooltip').render()}
+    ${this.state.cache(LoadingOverlay, 'loading-overlay').render()}
+    </div>`;
   }
 
   _loadAssets () {

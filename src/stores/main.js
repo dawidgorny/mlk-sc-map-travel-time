@@ -7,7 +7,7 @@ export default function mainStore (state, emitter) {
 
   emitter.on('DOMContentLoaded', function () {
     emitter.on('map:load', mapLoad);
-    emitter.on('map:assetsLoad', mapAssetsLoad);
+    emitter.on('map:assetsLoad', () => { mapAssetsLoad() });
     emitter.on('mode-switch:valueChange', modeSwitchValueChange);
     emitter.on('destination:valueChange', destinationValueChange);
     emitter.on('address-search:value', addressSearchValue);
@@ -18,9 +18,15 @@ export default function mainStore (state, emitter) {
     render();
   }
 
-  function mapAssetsLoad (assets) {
+  function mapAssetsLoad () {
+    console.log('mapAssetsLoad');
     state.main.loading = false;
+    state.components['loading-overlay'].visible = false;
     state.components['destination'].items = state.components['map'].destinations.map((d) => [d.label, d.id]);
+    state.components['destination'].value = state.components['map'].destinations[1].id;
+    state.components['destination'].text = state.components['map'].destinations[1].label;
+    state.components['map'].destinationId = state.components['destination'].value;
+    console.log('set');
     render();
   }
 

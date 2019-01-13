@@ -3,7 +3,6 @@ import raw from 'choo/html/raw';
 import Component from 'choo/component';
 import style from './style.css';
 import merge from '../../utils/merge';
-import nanostate from 'nanostate';
 
 export default class Dropdown extends Component {
   constructor (id, state, emit) {
@@ -16,56 +15,44 @@ export default class Dropdown extends Component {
       value: '',
       items: [ /* [label, value] */ ]
     }, state.components && state.components[id] ? state.components[id] : {}]);
-    this.setState();
     style.use();
-
-    this.machine = nanostate('select', {
-      select: { click: 'open' },
-      open: {
-        clickItem: 'select',
-        type: 'search'
-      },
-      search: { updateList: 'open' }
-    });
-  }
-
-  setState () {
-    
   }
 
   load (element) {
-    
   }
 
   update () {
-    let dirty = false;
-    
-
-
-    if (dirty) {
-      this.setState();
-    }
+    console.log('update');
     return true;
   }
 
   createElement () {
-    const s = this.local;
+    const l = this.local;
+
+
+    console.log('createElement');
+    if (l.items.length > 0) console.log(l.items[0][1], '===', l.value);
 
     const onSelectChange = (e) => {
-      this.emit(`${this.id}:valueChange`, e.target.value);
+      let value = e.target.value;
+      this.local.value = value;
+      for (let i = 0; i < this.local.items.length; i++) {
+        if (this.local.items[i][1] === value) {
+          this.local.text = this.local.items[i][0];
+          break;
+        }
+      }
+      this.emit(`${this.id}:valueChange`, value);
     };
 
     return html`
     <div class="ui search dropdown selection active visible" style="border: 1px solid black;">
       <select onchange=${onSelectChange}>
-        <option value="">Select</option>
-        ${raw(s.items.map((it) => `<option value="${it[1]}">${it[0]}</option>`).join(''))}
+        ${raw(l.items.map((it) => `<option value="${it[1]}" ${it[1] === l.value ? 'selected' : ''}>${it[0]}</option>`).join(''))}
       </select>
-      <i class="dropdown icon"></i>
       <input class="search" autocomplete="off" tabindex="0">
-      <div class="default text">Select</div>
       <div class="menu transition visible" tabindex="-1" style="display: block !important;">
-        ${raw(s.items.map((it) => `<div class="item ${it[1] === s.value ? 'selected' : ''}" data-value="${it[1]}">${it[0]}</div>`).join(''))}
+        ${raw(l.items.map((it) => `<div class="item ${it[1] === l.value ? 'selected' : ''}" data-value="${it[1]}">${it[0]}</div>`).join(''))}
       </div>
     </div>`;
   }
