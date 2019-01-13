@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>ico-mood-1</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mlk-sc" fill="#10069F">
+            <g id="ico-mood-1">
+                <path d="M6.902,1.5 C3.923,1.5 1.5,3.924 1.5,6.9 C1.5,9.879 3.923,12.303 6.902,12.303 C9.881,12.303 12.303,9.879 12.303,6.9 C12.303,3.924 9.881,1.5 6.902,1.5 M6.902,13.803 C3.096,13.803 0,10.707 0,6.9 C0,3.098 3.096,0 6.902,0 C10.708,0 13.803,3.098 13.803,6.9 C13.803,10.707 10.708,13.803 6.902,13.803" id="Fill-1"></path>
+                <path d="M6.902,11.2832 C4.739,11.2832 3.046,9.5902 3.046,7.4262 L4.546,7.4262 C4.546,8.7692 5.557,9.7832 6.902,9.7832 C8.247,9.7832 9.258,8.7692 9.258,7.4262 L10.758,7.4262 C10.758,9.5902 9.065,11.2832 6.902,11.2832" id="Fill-2"></path>
+                <polygon id="Fill-3" points="7.7762 5.2736 9.2762 5.2736 9.2762 3.2836 7.7762 3.2836"></polygon>
+                <polygon id="Fill-4" points="4.5202 5.2736 6.0202 5.2736 6.0202 3.2836 4.5202 3.2836"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
