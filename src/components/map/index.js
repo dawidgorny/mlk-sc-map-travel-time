@@ -6,13 +6,12 @@ import merge from '../../utils/merge';
 import layerKatowicePolygon from './layer-katowice-polygon';
 import layerHexgrid from './layer-hexgrid';
 import hexColor from './hex-color';
-
-import Tooltip from '../tooltip';
-import LoadingOverlay from '../loading-overlay';
+import hexDurationMood from './hex-duration-mood';
 
 export default class Map extends Component {
   constructor (id, state, emit) {
     super(id, state, emit);
+    this.id = id;
     this.state = state;
     this.emit = emit;
     this.local = state.components[id] = merge([{
@@ -57,6 +56,18 @@ export default class Map extends Component {
       showZoom: true
     });
     this.map.addControl(nav, 'top-right');
+
+    this.map.on('mouseenter', 'hexgrid', () => {
+      this.map.getCanvas().style.cursor = 'pointer';
+    });
+    this.map.on('mouseleave', 'hexgrid', () => {
+      this.map.getCanvas().style.cursor = '';
+    });
+    this.map.on('click', 'hexgrid', (e) => {
+      const feature = e.features[0];
+      this.emit(`${this.id}:featureClick`, feature);
+    });
+
     this.map.on('load', () => {
       this.local.mapLoading = false;
       this.emit('map:load');
@@ -82,10 +93,7 @@ export default class Map extends Component {
   }
 
   createElement () {
-    return html`<div class="w-100 h-100">
-    ${this.state.cache(Tooltip, 'tooltip').render()}
-    ${this.state.cache(LoadingOverlay, 'loading-overlay').render()}
-    </div>`;
+    return html`<div class="w-100 h-100"></div>`;
   }
 
   _loadAssets () {
@@ -150,9 +158,11 @@ export default class Map extends Component {
     this.assets['destinations.geojson'].features.forEach((f) => {
       this.assets[`destinations-data/${f.properties['place-id']}-transit.json`].forEach((d) => {
         d.color = hexColor('transit', d['duration_value']);
+        d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
       });
       this.assets[`destinations-data/${f.properties['place-id']}-driving.json`].forEach((d) => {
         d.color = hexColor('driving', d['duration_value']);
+        d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
       });
     });
 
@@ -184,6 +194,9 @@ export default class Map extends Component {
       const prop = f.properties;
       prop['color'] = d.color;
       prop['target_color'] = d.color;
+      prop['duration_value'] = d['duration_value'];
+      prop['duration_text'] = d['duration_text'];
+      prop['duration_mood'] = d['duration_mood'];
     }
 
     this.map.getSource('hexgrid').setData(geojson);
@@ -193,7 +206,7 @@ export default class Map extends Component {
     if (coordinates) {
       this.map.flyTo({
         center: coordinates,
-        zoom: 11.5,
+        zoom: 13.5,
         speed: 0.5
       });
     } else {

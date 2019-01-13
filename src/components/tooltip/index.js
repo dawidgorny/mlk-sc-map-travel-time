@@ -25,12 +25,7 @@ export default class TooltipSwitch extends Component {
       durationText: '',
       durationMood: 0
     }, state.components && state.components[id] ? state.components[id] : {}]);
-    this.setState();
     style.use();
-  }
-
-  setState () {
-    
   }
 
   load (element) {
@@ -38,28 +33,26 @@ export default class TooltipSwitch extends Component {
   }
 
   update () {
-    let dirty = this.isDirty | false;
-    
-    if (dirty) {
-      this.setState();
-    }
-    return dirty;
+    console.log('tooltip:update', this.local)
+    return true;
   }
 
   createElement () {
-    const s = this.local;
+    console.log('tooltip:createElement', this.local)
+    const l = this.local;
+    const sl = style.locals;
 
     let ico = '';
-    if (s.durationMood > 0) ico = IcoMood1Image;
-    if (s.durationMood > 1) ico = IcoMood2Image;
-    if (s.durationMood > 2) ico = IcoMood3Image;
-    if (s.durationMood > 3) ico = IcoMood4Image;
+    if (l.durationMood > 0) ico = IcoMood1Image;
+    if (l.durationMood > 1) ico = IcoMood2Image;
+    if (l.durationMood > 2) ico = IcoMood3Image;
+    if (l.durationMood > 3) ico = IcoMood4Image;
 
     return html`
-    <div class="absolute top-0 left-0 w-50 ph5 ${style.locals['tooltip']}">
-      <p class="bb">${s.districtname}</p>
-      <p>adresy w tym obszarze: <strong>${s.addressCount}</strong></p>
-      <p>czas dojazdu: <strong>${s.durationText}</strong><img src=${ico}></p>
+    <div class="absolute top-0 left-0 w-50 ph5 ${l.visible ? '' : 'dn'} ${sl['tooltip']}">
+      <p class="bb">${l.districtName}</p>
+      <p>adresy w tym obszarze: <strong>${l.addressCount}</strong></p>
+      <p>czas dojazdu: <strong>${l.durationText}</strong><img src=${ico}></p>
     </div>`;
   }
 }
