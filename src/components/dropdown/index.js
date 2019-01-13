@@ -46,12 +46,12 @@ export default class Dropdown extends Component {
     };
 
     return html`
-    <div class="ui search dropdown selection active visible" style="border: 1px solid black;">
+    <div class="fl ph0 db" style="border: 1px solid black;">
       <select onchange=${onSelectChange}>
         ${raw(l.items.map((it) => `<option value="${it[1]}" ${it[1] === l.value ? 'selected' : ''}>${it[0]}</option>`).join(''))}
       </select>
-      <input class="search" autocomplete="off" tabindex="0">
-      <div class="menu transition visible" tabindex="-1" style="display: block !important;">
+      <input class="search dn" autocomplete="off" tabindex="0">
+      <div class="menu transition visible dn" tabindex="-1" style="">
         ${raw(l.items.map((it) => `<div class="item ${it[1] === l.value ? 'selected' : ''}" data-value="${it[1]}">${it[0]}</div>`).join(''))}
       </div>
     </div>`;
