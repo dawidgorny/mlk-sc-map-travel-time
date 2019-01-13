@@ -10,15 +10,18 @@ content.features = content.features.map((f) => {
   let cellId = f.properties['cell-id'];
 
   let districtFullText = '';
+  let addressCount = 0;
   for (let i = 0; i < districts.length; i++) {
     if (districts[i]['cell.id'] === cellId) {
       districtFullText = districts[i]['district_full'];
+      addressCount = districts[i]['address.count'];
       break;
     }
   }
 
   const prop = {
     'cell-id': cellId,
+    'address_count': addressCount,
     'district_full_text': districtFullText
   };
   f.properties = prop;
