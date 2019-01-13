@@ -12,12 +12,7 @@ export default class LoadingOverlay extends Component {
     this.local = state.components[id] = merge([{
       visible: true
     }, state.components && state.components[id] ? state.components[id] : {}]);
-    this.setState();
     style.use();
-  }
-
-  setState () {
-    // this.local.visible = this.state.main.loading;
   }
 
   load (element) {
@@ -25,13 +20,6 @@ export default class LoadingOverlay extends Component {
   }
 
   update () {
-    let dirty = false;
-    // if (this.local.visible !== this.state.main.loading) {
-      // dirty = true;
-    // }
-    if (dirty) {
-      this.setState();
-    }
     return true;
   }
 
@@ -41,7 +29,7 @@ export default class LoadingOverlay extends Component {
     console.log('l.visible', l.visible);
     return html`
     <div class="absolute top-0 left-0 w-100 h-100 pa3 tc v-mid bg-black o-60 ${l.visible ? '' : sl['fade-out']}" style="z-index:3">
-      <div class="dib v-mid o-70 ${sl['loader-anim']}"></div>
+      <div class="dib v-mid o-80 ${sl['loader-anim']}"></div>
     </div>`;
   }
 }
