@@ -1,0 +1,7 @@
+:local .tooltip {
+  background-color: rgba(225,225,225,0.9);
+  z-index: 2;
+}
+:local .active {
+  
+}
