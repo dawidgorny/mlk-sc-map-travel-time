@@ -25,8 +25,8 @@ export default function mainStore (state, emitter) {
     state.main.loading = false;
     state.components['loading-overlay'].visible = false;
     state.components['destination'].items = state.components['map'].destinations.map((d) => [d.label, d.id]);
-    state.components['destination'].value = state.components['map'].destinations[1].id;
-    state.components['destination'].text = state.components['map'].destinations[1].label;
+    state.components['destination'].value = state.components['map'].destinations[0].id;
+    state.components['destination'].text = state.components['map'].destinations[0].label;
     state.components['map'].destinationId = state.components['destination'].value;
     render();
   }
