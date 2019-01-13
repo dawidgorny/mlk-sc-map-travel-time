@@ -1,0 +1,38 @@
+:local .address-search {
+  background-color: rgba(225,225,225,0.9);
+  z-index: 1;
+  width: 320px;
+  font-size: 10pt;
+  color: #10069F;
+}
+
+:local .input-field, .input-field:focus {
+  width: 85%;
+  border: 0;
+  background: transparent;
+  outline: 0;
+  color: #10069F;
+  font-size: 10pt;
+}
+
+:local .search-button {
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+:local .results {
+  color: #10069F;
+
+  a {
+    cursor: pointer;
+    padding-right: .25rem;
+  }
+
+  a:hover, a:focus {
+    background: #10069F;
+    color: #FFFFFF;
+    margin-left: -.5rem;
+    padding-left: .5rem;
+  }
+}

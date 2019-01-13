@@ -7,6 +7,8 @@ import nanostate from 'nanostate';
 
 import { geocode } from '../../utils/mapbox-api';
 
+import IcoSearchImage from './ico-search.svg';
+
 export default class AddressSearch extends Component {
   constructor (id, state, emit) {
     super(id, state, emit);
@@ -51,18 +53,19 @@ export default class AddressSearch extends Component {
   }
 
   createElement () {
-    const s = this.local;
+    const l = this.local;
+    const sl = style.locals;
 
     let searchDelay = null;
     const onInputChange = (e) => {
       let query = e.target.value;
-      s.text = query;
+      l.text = query;
 
       /* We use timeout so we dont abuse the api. API query will happen 0.5 second after finished typing */
       if (searchDelay) clearTimeout(searchDelay);
       searchDelay = setTimeout(async () => {
         let ret = await this._search(query);
-        s.items = ret.map((it) => {
+        l.items = ret.map((it) => {
           return [it.label, JSON.stringify(it.coordinates)];
         });
         this._updateList(ret);
@@ -80,13 +83,18 @@ export default class AddressSearch extends Component {
       return true;
     };
 
+    const onSearchButtonClick = (e) => {
+
+    };
+
     return html`
-    <div class="" style="border: 1px solid black; height: 120px;">
-      <input class="" autocomplete="off" tabindex="0" value="${s.text}" onchange=${onInputChange} onkeyup=${onInputChange}>
-      <input class="" autocomplete="off" tabindex="0" value="${JSON.stringify(s.value)}">
-      <div class="">Address</div>
-      <div class="" tabindex="-1" style="display: block !important;">
-        ${s.items.map((it) => html`<div class="${it[1] === s.value ? 'selected' : ''}" data-value="${it[1]}" onclick=${onItemClick}>${it[0]}</div>`)}
+    <div class="absolute top-0 left-0 pt3 pb1 pl5 pr3 ${sl['address-search']}" style="">
+      <p class="w-100 bb pb1 ma0" style="border-color: #10069F;">
+        <input class="input-reset ${sl['input-field']}" autocomplete="off" tabindex="0" value="${l.text}" onchange=${onInputChange} onkeyup=${onInputChange}>
+        <button class="input-reset button-reset fr ${sl['search-button']}" onclick=${onSearchButtonClick}><img width="12" src=${IcoSearchImage}></button>
+      </p>
+      <div class="mv2 ${sl['results']}">
+        ${l.items.map((it) => html`<a class="pv1 dib w-100 link ${it[1] === l.value ? 'selected' : ''}" data-value="${it[1]}" onclick=${onItemClick}>${it[0]}</div>`)}
       </div>
     </div>`;
   }
@@ -102,9 +110,15 @@ export default class AddressSearch extends Component {
       language: 'pl'
     }).json();
     ret = ret.features.map((f) => {
-      let label = f.place_name_pl;
-      label = label.replace(', Polska', '');
-      label = label.replace(', województwo śląskie', '');
+      let labelParts = f.place_name_pl.split(',');
+      let label = '';
+      if (labelParts.length > 0) {
+        label += labelParts[0].trim();
+      }
+      if (labelParts.length > 1) {
+        label += ', ' + labelParts[1].trim();
+      }
+
       return {
         label,
         coordinates: f.geometry.coordinates
