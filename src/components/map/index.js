@@ -5,6 +5,7 @@ import merge from '../../utils/merge';
 
 import layerKatowicePolygon from './layer-katowice-polygon';
 import layerHexgrid from './layer-hexgrid';
+import layerSelection from './layer-selection';
 import hexColor from './hex-color';
 import hexDurationMood from './hex-duration-mood';
 
@@ -66,6 +67,11 @@ export default class Map extends Component {
     this.map.on('click', 'hexgrid', (e) => {
       const feature = e.features[0];
       this.emit(`${this.id}:featureClick`, feature);
+
+      let geojson = layerSelection('selection').source.data;
+      geojson.features[0].geometry.coordinates = feature.geometry.coordinates[0].slice();
+      console.log(geojson.features[0].geometry);
+      this.map.getSource('selection').setData(geojson);
     });
 
     this.map.on('load', () => {
@@ -175,7 +181,11 @@ export default class Map extends Component {
     hexgrid.layerDef.source = hexgrid.sourceDef;
     this.map.addLayer(hexgrid.layerDef, 'airport-label');
 
-
+    /**
+     * Add selection layer
+     */
+    let hexSelection = layerSelection('selection');
+    this.map.addLayer(hexSelection, 'airport-label');
   }
 
   setDestination (mode, destinationId) {
