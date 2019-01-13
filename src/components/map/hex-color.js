@@ -3,7 +3,7 @@ import hexDurationMood from './hex-duration-mood';
 const color = [
   '#ffffff',
   'hsl(244, 61%, 48%)',
-  'rgb(242,242,242)',
+  'rgb(158,155,255)',
   'rgb(255,169,163)',
   'rgb(255,65,51)'
 ];
