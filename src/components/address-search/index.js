@@ -67,6 +67,7 @@ export default class AddressSearch extends Component {
       if (searchDelay) clearTimeout(searchDelay);
       searchDelay = setTimeout(async () => {
         let ret = await this._search(query);
+        ret = ret.filter((it) => it.label.indexOf('Katowice') > -1 ? it : false);
         l.items = ret.map((it) => {
           return [it.label, JSON.stringify(it.coordinates)];
         });
