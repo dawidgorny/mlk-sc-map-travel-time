@@ -78,7 +78,7 @@ export default class AddressSearch extends Component {
     const onItemClick = (e) => {
       let label = e.target.innerText;
       let value = JSON.parse(e.target.getAttribute('data-value'));
-      this.local.text = label;
+      // this.local.text = label;
       this.local.value = value;
       this.emit(`${this.id}:value`, value, label);
       return true;
