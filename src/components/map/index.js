@@ -164,7 +164,7 @@ export default class Map extends Component {
      * Prepare list of destinations
      */
     this.local.destinations = this.assets['destinations.geojson'].features.map((f) => {
-      return { label: f.properties['name'], id: f.properties['place-id'] };
+      return { label: f.properties['place_name'], id: f.properties['place-id'] };
     });
 
     let manifestArr = this.local.destinations.map((dest) => { return { type: 'text', src: `destinations-data/${dest.id}-transit.json`, parser: JSON.parse }; });
