@@ -46,7 +46,7 @@ export default class Dropdown extends Component {
     };
 
     return html`
-    <div class="fl ph0 db" style="border: 1px solid black;">
+    <div class="fl ph0 db" style="">
       <select onchange=${onSelectChange}>
         ${raw(l.items.map((it) => `<option value="${it[1]}" ${it[1] === l.value ? 'selected' : ''}>${it[0]}</option>`).join(''))}
       </select>
