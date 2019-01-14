@@ -14,7 +14,7 @@ export default function mainView (state, emit) {
   console.log(style);
   const sl = style.locals;
   return html`
-    <div class=" db w-100 h-100">
+    <div class=" db w-100 h-100" style="min-width: 320px;">
       <div class="flex flex-wrap-reverse db w-100">
         <div class="fl pl5 pr1 ${sl['mode-switch-container']}">
           ${state.cache(ModeSwitch, 'mode-switch').render()}
@@ -25,7 +25,9 @@ export default function mainView (state, emit) {
       </div>
       <div class="relative dib w-100 h-100">
         ${state.cache(Map, 'map').render()}
-        ${state.cache(AddressSearch, 'address-search').render()}
+        <div class="absolute top-0 left-0 ${sl['address-search-container']}">
+          ${state.cache(AddressSearch, 'address-search').render()}
+        </div>
         <div class="absolute top-0 left-0 w-100 h-100 ${sl['tooltip-container']}">
           ${this.state.cache(Tooltip, 'tooltip').render()}
         </div>

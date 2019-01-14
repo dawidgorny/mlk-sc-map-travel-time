@@ -2,7 +2,14 @@
   border-radius: 0;
   box-shadow: none;
   border: 1px solid #10069F;
+ 
 }
 .mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-in {
   border-bottom: 1px solid #10069F;
+}
+
+@media screen and (max-width: 370px) {
+  .mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+    margin-top: 60px;
+  }
 }

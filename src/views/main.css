@@ -8,7 +8,7 @@
     min-width: 80px;
     padding-left: .25rem;
     position: absolute;
-    top: 130px;
+    top: 185px;
     z-index:3;
   }
 }
@@ -53,6 +53,24 @@
     :global .tooltip-body {
       bottom: 0;
       padding-left: .5rem;
+    }
+  }
+}
+
+
+:local .address-search-container {
+  left: 0;
+
+  :global div.absolute {
+    padding-left: 4rem;
+  }
+
+  @media screen and (max-width: 650px) {
+    left: 0;
+    z-index: 100;
+    :global div.absolute {
+      padding-left: .5rem;
+      display: block !important;
     }
   }
 }
