@@ -26,7 +26,9 @@ export default function mainView (state, emit) {
       <div class="relative dib w-100 h-100">
         ${state.cache(Map, 'map').render()}
         ${state.cache(AddressSearch, 'address-search').render()}
-        ${this.state.cache(Tooltip, 'tooltip').render()}
+        <div class="absolute top-0 left-0 w-100 h-100 ${sl['tooltip-container']}">
+          ${this.state.cache(Tooltip, 'tooltip').render()}
+        </div>
         ${this.state.cache(LoadingOverlay, 'loading-overlay').render()}
       </div>
       <div class="flex flex-wrap-reverse w-100 ph2 pt2">
