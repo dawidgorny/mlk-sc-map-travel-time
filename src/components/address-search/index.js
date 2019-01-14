@@ -73,7 +73,7 @@ export default class AddressSearch extends Component {
         this._updateList(ret);
         this.isDirty = true;
         this.emit('render');
-      }, 500);
+      }, 600);
     };
 
     const onItemClick = (e) => {
