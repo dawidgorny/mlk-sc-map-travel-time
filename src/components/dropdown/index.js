@@ -22,16 +22,11 @@ export default class Dropdown extends Component {
   }
 
   update () {
-    console.log('update');
     return true;
   }
 
   createElement () {
     const l = this.local;
-
-
-    console.log('createElement');
-    if (l.items.length > 0) console.log(l.items[0][1], '===', l.value);
 
     const onSelectChange = (e) => {
       let value = e.target.value;

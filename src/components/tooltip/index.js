@@ -33,12 +33,10 @@ export default class TooltipSwitch extends Component {
   }
 
   update () {
-    console.log('tooltip:update', this.local)
     return true;
   }
 
   createElement () {
-    console.log('tooltip:createElement', this.local)
     const l = this.local;
     const sl = style.locals;
 
