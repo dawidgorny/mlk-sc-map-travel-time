@@ -1,7 +1,12 @@
 import html from 'choo/html';
 import Component from 'choo/component';
 import resl from 'resl';
+import distance from '@turf/distance';
+import { point } from '@turf/helpers';
 import merge from '../../utils/merge';
+
+console.log(distance);
+console.log(point);
 
 import layerKatowicePolygon from './layer-katowice-polygon';
 import layerHexgrid from './layer-hexgrid';
@@ -34,6 +39,7 @@ export default class Map extends Component {
 
     this._currentDestinationId = this.local.destinationId;
     this._currentMode = this.local.mode;
+    this._currentHilightCoordinates = this.local.hilightCoordinates;
   }
 
   setState () {
@@ -203,7 +209,6 @@ export default class Map extends Component {
       const d = data[i];
       const prop = f.properties;
       prop['color'] = d.color;
-      prop['target_color'] = d.color;
       prop['duration_value'] = d['duration_value'];
       prop['duration_text'] = d['duration_text'];
       prop['duration_mood'] = d['duration_mood'];
@@ -213,19 +218,34 @@ export default class Map extends Component {
   }
 
   setHilight (coordinates, label) {
-    if (coordinates) {
-      this.map.flyTo({
-        center: coordinates,
-        zoom: 13.5,
-        speed: 0.5
-      });
-    } else {
-      this.map.flyTo({
-        center: [19.023632, 50.234461],
-        zoom: 10,
-        speed: 0.7
-      });
+    function polyInOut (t) {
+      const e = 4.0;
+      return ((t *= 2) <= 1 ? Math.pow(t, e) : 2 - Math.pow(2 - t, e)) / 2;
     }
+
+
+    let coord = [19.023632, 50.234461];
+    let targetZoom = 13.5;
+    if (coordinates) {
+      targetZoom = 13.5;
+      coord = coordinates.slice();
+    } else {
+      targetZoom = 10.0;
+    }
+    const currentZoom = this.map.getZoom();
+    let d = 1.0;
+    if (this._currentHilightCoordinates) {
+      d = distance(point(this._currentHilightCoordinates), point(coord));
+    }
+    let speed = 0.2 * d;
+    this._currentHilightCoordinates = coord.slice();
+    this.map.flyTo({
+      center: this._currentHilightCoordinates,
+      zoom: targetZoom,
+      screenSpeed: speed,
+      easing: polyInOut,
+      curve: 1
+    });
   }
 
 
