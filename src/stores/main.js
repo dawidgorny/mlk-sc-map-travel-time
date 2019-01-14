@@ -33,6 +33,7 @@ export default function mainStore (state, emitter) {
   function mapReady () {
     state.main.loading = false;
     state.components['loading-overlay'].visible = false;
+    state.components['address-search'].visible = true;
     render();
   }
 

@@ -17,7 +17,7 @@ export default class AddressSearch extends Component {
     this.emit = emit;
     this.isDirty = false;
     this.local = state.components[id] = merge([{
-      visible: true,
+      visible: false,
       text: '',
       value: [],
       items: [ /* ... , [label, value], ... */ ]
