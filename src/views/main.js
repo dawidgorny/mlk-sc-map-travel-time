@@ -7,7 +7,12 @@ import Tooltip from '../components/tooltip';
 import LoadingOverlay from '../components/loading-overlay';
 import Legend from '../components/legend';
 
+import style from './main.css';
+
 export default function mainView (state, emit) {
+  style.use();
+  console.log(style);
+  const sl = style.locals;
   return html`
     <div class=" db w-100 h-100">
       <div class="db w-100">
@@ -24,7 +29,12 @@ export default function mainView (state, emit) {
         ${this.state.cache(Tooltip, 'tooltip').render()}
         ${this.state.cache(LoadingOverlay, 'loading-overlay').render()}
       </div>
-      ${this.state.cache(Legend, 'legend').render()}
+      <div class="debug flex flex-wrap-reverse w-100 ph2 pt2">
+        <div class="fl ph1" style="width: 20rem;"><p> </p></div>
+        <div class="fl pl0 pr0 db ${sl['legend-container']}" style="">
+          ${this.state.cache(Legend, 'legend').render()}
+        </div>
+      </div>
     </div>
   `;
 }
