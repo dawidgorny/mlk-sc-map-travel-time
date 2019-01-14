@@ -1,0 +1,75 @@
+{
+  "_from": "accessible-dropdown@^1.1.1",
+  "_id": "accessible-dropdown@1.1.1",
+  "_inBundle": false,
+  "_integrity": "sha1-8kW4QI4OB+aASoGmIX22i8ifXio=",
+  "_location": "/accessible-dropdown",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "accessible-dropdown@^1.1.1",
+    "name": "accessible-dropdown",
+    "escapedName": "accessible-dropdown",
+    "rawSpec": "^1.1.1",
+    "saveSpec": null,
+    "fetchSpec": "^1.1.1"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://localhost:4873/accessible-dropdown/-/accessible-dropdown-1.1.1.tgz",
+  "_shasum": "f245b8408e0e07e6804a81a6217db68bc89f5e2a",
+  "_spec": "accessible-dropdown@^1.1.1",
+  "_where": "/Users/dawid/work/mlk-sc-sum-map",
+  "author": {
+    "name": "Sarbbottam Bandyopadhyay"
+  },
+  "bugs": {
+    "url": "https://github.com/sarbbottam/accessible-dropdown/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "accessible dropdown",
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "coveralls": "^2.11.2",
+    "grunt": "~0.4.2",
+    "grunt-browserify": "^3.8.0",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-eslint": "^15.0.0",
+    "grunt-karma": "~0.11.0",
+    "karma": "~0.12.36",
+    "karma-chai": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.12",
+    "karma-commonjs": "0.0.13",
+    "karma-coverage": "~0.3.1",
+    "karma-junit-reporter": "~0.2.2",
+    "karma-mocha": "~0.1.10",
+    "karma-sauce-launcher": "^0.2.11",
+    "karma-threshold-reporter": "~0.1.15",
+    "load-grunt-tasks": "~0.2.0",
+    "mocha": "^2.2.5"
+  },
+  "files": [
+    "src"
+  ],
+  "homepage": "https://github.com/sarbbottam/accessible-dropdown#readme",
+  "license": "MIT",
+  "main": "src/dropdown.js",
+  "name": "accessible-dropdown",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sarbbottam/accessible-dropdown.git"
+  },
+  "scripts": {
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "deploy": "./script/deploy.sh",
+    "dev": "grunt js",
+    "test": "grunt js:ci"
+  },
+  "version": "1.1.1"
+}
