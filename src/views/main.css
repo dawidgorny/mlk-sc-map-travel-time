@@ -1,3 +1,34 @@
+
+:local .mode-switch-container {
+  width: 20rem;;
+  min-width: 20rem;
+  @media screen and (max-width: 650px) {
+    width: 80px;
+    max-width: 80px;
+    min-width: 80px;
+    padding-left: .25rem;
+    position: absolute;
+    top: 130px;
+    z-index:3;
+  }
+}
+
+:local .dropdown-container {
+  width: 300px;
+  min-width: 300px;
+  padding-left: 0;
+  padding-right: 0;
+  @media screen and (max-width: 650px) {
+    width: 100%;
+    max-width: 100%;
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
+}
+
+
+
+
 :local .legend-container {
   width: 300px;
   min-width: 300px;

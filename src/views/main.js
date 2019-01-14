@@ -15,11 +15,11 @@ export default function mainView (state, emit) {
   const sl = style.locals;
   return html`
     <div class=" db w-100 h-100">
-      <div class="db w-100">
-        <div class="fl ph1" style="width: 20rem;">
+      <div class="flex flex-wrap-reverse db w-100">
+        <div class="fl pl5 pr1 ${sl['mode-switch-container']}">
           ${state.cache(ModeSwitch, 'mode-switch').render()}
         </div>
-        <div class="fl ph0" style="width: 310px">
+        <div class="fl ph0 ${sl['dropdown-container']}">
           ${state.cache(Dropdown, 'destination').render()}
         </div>
       </div>
@@ -29,9 +29,9 @@ export default function mainView (state, emit) {
         ${this.state.cache(Tooltip, 'tooltip').render()}
         ${this.state.cache(LoadingOverlay, 'loading-overlay').render()}
       </div>
-      <div class="debug flex flex-wrap-reverse w-100 ph2 pt2">
+      <div class="flex flex-wrap-reverse w-100 ph2 pt2">
         <div class="fl ph1" style="width: 20rem;"><p> </p></div>
-        <div class="fl pl0 pr0 db ${sl['legend-container']}" style="">
+        <div class="fl pl0 pr0 db ${sl['legend-container']}">
           ${this.state.cache(Legend, 'legend').render()}
         </div>
       </div>
