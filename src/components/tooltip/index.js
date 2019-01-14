@@ -39,6 +39,7 @@ export default class TooltipSwitch extends Component {
   createElement () {
     const l = this.local;
     const sl = style.locals;
+    const transl = this.state.translation;
 
     let ico = '';
     if (l.durationMood > 0) ico = IcoMood1Image;
@@ -50,8 +51,8 @@ export default class TooltipSwitch extends Component {
     <div class="absolute top-0 left-0 w-50 pt3 pb3 pl5 pr3 ${l.visible ? '' : 'dn'} ${sl['tooltip']}">
       <p class="w-100 bb pb1 ma0 b" style="border-color: #10069F;">${l.districtName}</p>
       <div class="mv2">
-        <p class="pa0 ma0">adresy w tym obszarze: <strong>${l.addressCount}</strong></p>
-        <p class="pa0 ma0 fl">czas dojazdu: <strong>${l.durationText}</strong></p><img class="ph1 fl ${sl['ico-mood']}" src=${ico}>
+        <p class="pa0 ma0">${transl.tooltip['addressCountLabel'] || 'adresy w tym obszarze:'} <strong>${l.addressCount}</strong></p>
+        <p class="pa0 ma0 fl">${transl.tooltip['durationLabel'] || 'czas dojazdu:'} <strong>${l.durationText}</strong></p><img class="ph1 fl ${sl['ico-mood']}" src=${ico}>
       </div>
     </div>`;
   }
