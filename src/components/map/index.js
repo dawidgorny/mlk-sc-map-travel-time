@@ -36,7 +36,6 @@ export default class Map extends Component {
       destinationId: null,
       mode: 'transit'
     }, state.components && state.components[id] ? state.components[id] : {}]);
-    this.setState();
     this.assets = {};
 
     this._currentDestinationId = this.local.destinationId;
@@ -44,10 +43,6 @@ export default class Map extends Component {
     this._currentCenter = this.local.center;
 
     this._isFeatureSelected = false;
-  }
-
-  setState () {
-    
   }
 
   load (element) {
@@ -91,11 +86,14 @@ export default class Map extends Component {
     this.map.on('click', 'hexgrid', (e) => {
       const feature = e.features[0];
       this._isFeatureSelected = true;
-      this.emit(`${this.id}:featureClick`, feature);
 
       let geojson = layerSelection('selection').source.data;
       geojson.features[0].geometry.coordinates = feature.geometry.coordinates[0].slice();
       this.map.getSource('selection').setData(geojson);
+
+      this.local.center = centroid(feature.geometry).geometry.coordinates;
+
+      this.emit(`${this.id}:featureClick`, feature);
     });
 
     this.map.on('load', () => {
@@ -106,7 +104,6 @@ export default class Map extends Component {
   }
 
   update () {
-    let dirty = false;
     if (this.local.mode !== this._currentMode || this.local.destinationId !== this._currentDestinationId) {
       this.setDestination(this.local.mode, this.local.destinationId);
     }
@@ -128,20 +125,15 @@ export default class Map extends Component {
       if (feature) {
         geojson.features[0].geometry.coordinates = feature.geometry.coordinates[0].slice();
         this.map.getSource('selection').setData(geojson);
-        // this.local.center = centroid(feature.geometry).geometry.coordinates;
+        this.local.center = centroid(feature.geometry).geometry.coordinates;
         this.emit(`${this.id}:featureClick`, feature);
       }
     }
-    this.setHilight(this.local.center);
-
-    // if (this.local.visible !== this.state.main.visible) {
-      // dirty = true;
-    // }
-
-    if (dirty) {
-      this.setState();
+    if (this._currentCenter[0] !== this.local.center[0] || this._currentCenter[1] !== this.local.center[1]) {
+      this.setHilight(this.local.center);
     }
-    return dirty;
+
+    return false;
   }
 
   createElement () {

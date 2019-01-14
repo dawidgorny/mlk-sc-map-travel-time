@@ -62,8 +62,8 @@ export default function mainStore (state, emitter) {
     tooltip.durationText = prop['duration_text'];
     tooltip.durationMood = prop['duration_mood'];
 
-    const center = centroid(feature.geometry);
-    state.components['map'].center = center.geometry.coordinates;
+    // const center = centroid(feature.geometry);
+    // state.components['map'].center = center.geometry.coordinates;
     render();
   }
 
