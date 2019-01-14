@@ -5,6 +5,7 @@ import AddressSearch from '../components/address-search';
 import ModeSwitch from '../components/mode-switch';
 import Tooltip from '../components/tooltip';
 import LoadingOverlay from '../components/loading-overlay';
+import Legend from '../components/legend';
 
 export default function mainView (state, emit) {
   return html`
@@ -17,6 +18,7 @@ export default function mainView (state, emit) {
         ${this.state.cache(Tooltip, 'tooltip').render()}
         ${this.state.cache(LoadingOverlay, 'loading-overlay').render()}
       </div>
+      ${this.state.cache(Legend, 'legend').render()}
     </div>
   `;
 }
