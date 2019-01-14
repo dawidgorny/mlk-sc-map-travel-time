@@ -249,6 +249,7 @@ export default class Map extends Component {
     }
 
     this.map.getSource('hexgrid').setData(geojson);
+    this.emit(this.id + ':destinationSet', { mode, destinationId, properties: this.assets[dataSource].properties });
   }
 
   setHilight (coordinates, label) {

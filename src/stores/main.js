@@ -15,6 +15,7 @@ export default function mainStore (state, emitter) {
     emitter.on('address-search:value', addressSearchValue);
     emitter.on('map:featureClick', mapFeatureClick);
     emitter.on('map:featureDeselect', mapFeatureDeselect);
+    emitter.on('map:destinationSet', mapDestinationSet);
   });
 
   function mapLoad () {
@@ -68,6 +69,11 @@ export default function mainStore (state, emitter) {
     state.components['tooltip'].visible = false;
     state.components['address-search'].visible = true;
     state.components['map'].hilightCoordinates = null;
+    render();
+  }
+
+  function mapDestinationSet (destination) {
+    state.components['legend'].values = destination.properties.stats.slice();
     render();
   }
 
