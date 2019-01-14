@@ -23,7 +23,6 @@ export default class AddressSearch extends Component {
       items: [ /* ... , [label, value], ... */ ],
       bbox: [18.909330207135934, 50.16298654333147, 19.118374382500072, 50.29340052573354]
     }, state.components && state.components[id] ? state.components[id] : {}]);
-    this.setState();
     style.use();
 
     this.machine = nanostate('select', {
@@ -36,10 +35,6 @@ export default class AddressSearch extends Component {
     });
   }
 
-  setState () {
-    
-  }
-
   load (element) {
     
   }
@@ -47,9 +42,6 @@ export default class AddressSearch extends Component {
   update () {
     let dirty = this.isDirty | false;
 
-    if (dirty) {
-      this.setState();
-    }
     this.isDirty = false;
     return true;
   }
@@ -82,12 +74,16 @@ export default class AddressSearch extends Component {
       let value = JSON.parse(e.target.getAttribute('data-value'));
       // this.local.text = label;
       this.local.value = value;
-      this.emit(`${this.id}:value`, value, label);
+      if (searchDelay) clearTimeout(searchDelay);
+      this._resetInput();
+      this.emit(`${this.id}:value`, value.slice(), label + '');
       return true;
     };
 
     const onSearchButtonClick = (e) => {
-
+      if (searchDelay) clearTimeout(searchDelay);
+      this._resetInput();
+      this.element.querySelector(`input.${sl['input-field']}`).focus();
     };
 
     return html`
@@ -100,6 +96,13 @@ export default class AddressSearch extends Component {
         ${l.items.map((it) => html`<a class="pv1 dib w-100 link ${it[1] === l.value ? 'selected' : ''}" data-value="${it[1]}" onclick=${onItemClick}>${it[0]}</div>`)}
       </div>
     </div>`;
+  }
+
+  _resetInput () {
+    this.local.text = '';
+    this.local.value = [];
+    this.local.items = [];
+    this.rerender();
   }
 
   async _search (query) {
