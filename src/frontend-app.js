@@ -6,7 +6,7 @@ import styles from './app.css';
 styles.use();
 
 export default class FrontentApp {
-  constructor (mapContainer, mapStyle, mapboxAccessToken) {
+  constructor (mapContainer, mapStyle, mapboxAccessToken, translation) {
     this.mapContainer = mapContainer;
     this.app = choo();
     if (process.env.NODE_ENV !== 'production') {
@@ -14,6 +14,7 @@ export default class FrontentApp {
     }
     this.app.use(mainStore);
     this.app.use((state, emitter) => {
+      state.translation = translation;
       state.components['map'] = {
         mapboxAccessToken,
         style: mapStyle

@@ -2,6 +2,7 @@ import centroid from '@turf/centroid';
 import bbox from '@turf/bbox';
 
 export default function mainStore (state, emitter) {
+  state.translation = {};
   state.components = {};
   state.main = {
     loading: true
@@ -24,7 +25,8 @@ export default function mainStore (state, emitter) {
   }
 
   function mapAssetsLoad (assets) {
-    state.components['destination'].items = state.components['map'].destinations.map((d) => [d.label, d.id]);
+    
+    state.components['destination'].items = state.components['map'].destinations.map((d) => [state.translation.destinations[d.id] || d.label, d.id]);
     state.components['destination'].value = state.components['map'].destinations[0].id;
     state.components['destination'].text = state.components['map'].destinations[0].label;
     state.components['map'].destinationId = state.components['destination'].value;
