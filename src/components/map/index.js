@@ -200,11 +200,11 @@ export default class Map extends Component {
      * Process data files and calculate layer colors etc.
      */
     this.assets['destinations.geojson'].features.forEach((f) => {
-      this.assets[`destinations-data/${f.properties['place-id']}-transit.json`].forEach((d) => {
+      this.assets[`destinations-data/${f.properties['place-id']}-transit.json`].features.forEach((d) => {
         d.color = hexColor('transit', d['duration_value']);
         d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
       });
-      this.assets[`destinations-data/${f.properties['place-id']}-driving.json`].forEach((d) => {
+      this.assets[`destinations-data/${f.properties['place-id']}-driving.json`].features.forEach((d) => {
         d.color = hexColor('driving', d['duration_value']);
         d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
       });
@@ -233,7 +233,7 @@ export default class Map extends Component {
     if (!this.assets[dataSource]) return;
 
     let geojson = this.assets['hexgrid.geojson'];
-    let data = this.assets[dataSource];
+    let data = this.assets[dataSource].features;
 
     this._currentMode = mode;
     this._currentDestinationId = destinationId;
