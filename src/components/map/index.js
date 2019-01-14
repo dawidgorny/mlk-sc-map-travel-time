@@ -85,7 +85,7 @@ export default class Map extends Component {
     });
     this.map.on('click', 'hexgrid', (e) => {
       const feature = e.features[0];
-      this._isFeatureSelected = true;
+      this._isFeatureSelected = feature;
 
       let geojson = layerSelection('selection').source.data;
       geojson.features[0].geometry.coordinates = feature.geometry.coordinates[0].slice();
@@ -246,6 +246,11 @@ export default class Map extends Component {
       prop['duration_value'] = d['duration_value'];
       prop['duration_text'] = d['duration_text'];
       prop['duration_mood'] = d['duration_mood'];
+
+      if (this._isFeatureSelected && this._isFeatureSelected.properties['cell-id'] === f.properties['cell-id']) {
+        this._isFeatureSelected = f;
+        this.emit(this.id + ':featureClick', this._isFeatureSelected);
+      }
     }
 
     this.map.getSource('hexgrid').setData(geojson);
