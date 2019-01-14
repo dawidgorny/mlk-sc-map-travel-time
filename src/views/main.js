@@ -9,10 +9,14 @@ import Legend from '../components/legend';
 
 export default function mainView (state, emit) {
   return html`
-    <div class="db w-100 h-100">
+    <div class=" db w-100 h-100">
       <div class="db w-100">
-        ${state.cache(ModeSwitch, 'mode-switch').render()}
-        ${state.cache(Dropdown, 'destination').render()}
+        <div class="fl ph1" style="width: 20rem;">
+          ${state.cache(ModeSwitch, 'mode-switch').render()}
+        </div>
+        <div class="fl ph0" style="width: 310px">
+          ${state.cache(Dropdown, 'destination').render()}
+        </div>
       </div>
       <div class="relative dib w-100 h-100">
         ${state.cache(Map, 'map').render()}

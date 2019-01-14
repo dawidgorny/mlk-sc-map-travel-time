@@ -5,6 +5,7 @@
 
 :local .dropdown {
   max-width: 300px;
+  width: 100%;
 
   :global .drop-down {
     background:url('./icon-ios7-arrow-down-128.png') #fff 100% 60%/16px 16px no-repeat;

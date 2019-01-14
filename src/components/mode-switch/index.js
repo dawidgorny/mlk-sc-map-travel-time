@@ -54,7 +54,7 @@ export default class ModeSwitch extends Component {
     };
 
     return html`
-    <div class="fl pl5 pr0 ${style.locals['mode-switch']}">
+    <div class="fl pl5 pr0 pt3 ${style.locals['mode-switch']}">
       <a data-toggle-value="transit" class="pl0 pr1 ${s.value === 'transit' ? style.locals['active'] : ''}" href="#" onclick=${onClick}><img src="${TramBlueImage}" width="60" height="29"></a>
       <a data-toggle-value="driving" class="pl1 pr0 ${s.value === 'driving' ? style.locals['active'] : ''}" href="#" onclick=${onClick}><img src="${CarBlueImage}" width="60" height="29"></a>
     </div>`;
