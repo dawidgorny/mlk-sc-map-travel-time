@@ -1,4 +1,5 @@
 import centroid from '@turf/centroid';
+import bbox from '@turf/bbox';
 
 export default function mainStore (state, emitter) {
   state.components = {};
@@ -8,7 +9,7 @@ export default function mainStore (state, emitter) {
 
   emitter.on('DOMContentLoaded', function () {
     emitter.on('map:load', mapLoad);
-    emitter.on('map:assetsLoad', () => { mapAssetsLoad(); });
+    emitter.on('map:assetsLoad', mapAssetsLoad);
     emitter.on('map:ready', mapReady);
     emitter.on('mode-switch:valueChange', modeSwitchValueChange);
     emitter.on('destination:valueChange', destinationValueChange);
@@ -22,11 +23,15 @@ export default function mainStore (state, emitter) {
     render();
   }
 
-  function mapAssetsLoad () {
+  function mapAssetsLoad (assets) {
     state.components['destination'].items = state.components['map'].destinations.map((d) => [d.label, d.id]);
     state.components['destination'].value = state.components['map'].destinations[0].id;
     state.components['destination'].text = state.components['map'].destinations[0].label;
     state.components['map'].destinationId = state.components['destination'].value;
+
+    const hexgridBBox = bbox(assets['hexgrid.geojson']);
+    state.components['address-search'].bbox = hexgridBBox;
+
     render();
   }
 

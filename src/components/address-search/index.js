@@ -20,7 +20,8 @@ export default class AddressSearch extends Component {
       visible: false,
       text: '',
       value: [],
-      items: [ /* ... , [label, value], ... */ ]
+      items: [ /* ... , [label, value], ... */ ],
+      bbox: [18.909330207135934, 50.16298654333147, 19.118374382500072, 50.29340052573354]
     }, state.components && state.components[id] ? state.components[id] : {}]);
     this.setState();
     style.use();
@@ -103,7 +104,7 @@ export default class AddressSearch extends Component {
   async _search (query) {
     if (!query || query.length === 0) return []; /* return empty results if query is empty */
     let ret = await geocode(this.local.mapboxAccessToken, query, {
-      bbox: [18.723632, 50.034461, 20.023632, 50.734461],
+      bbox: this.local.bbox,
       types: ['address'],
       autocomplete: true,
       limit: 4,
