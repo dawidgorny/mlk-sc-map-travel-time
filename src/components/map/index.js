@@ -2,17 +2,19 @@ import html from 'choo/html';
 import Component from 'choo/component';
 import resl from 'resl';
 import distance from '@turf/distance';
-import { point } from '@turf/helpers';
+import { point, polygon } from '@turf/helpers';
+import centroid from '@turf/centroid';
+import pointInPolygon from '@turf/boolean-point-in-polygon';
 import merge from '../../utils/merge';
-
-console.log(distance);
-console.log(point);
 
 import layerKatowicePolygon from './layer-katowice-polygon';
 import layerHexgrid from './layer-hexgrid';
 import layerSelection from './layer-selection';
 import hexColor from './hex-color';
 import hexDurationMood from './hex-duration-mood';
+
+const defaultCenter = [19.023632, 50.234461];
+const defaultZoom = 11;
 
 export default class Map extends Component {
   constructor (id, state, emit) {
@@ -22,14 +24,14 @@ export default class Map extends Component {
     this.emit = emit;
     this.local = state.components[id] = merge([{
       style: 'mapbox://styles/mapbox/light-v9',
-      center: [19.023632, 50.234461],
-      zoom: 10,
+      center: defaultCenter,
+      zoom: defaultZoom,
       minZoom: null,
       maxZoom: null,
       maxBounds: null,
       mapLoading: true,
       assetsLoading: true,
-      hilightCoordinates: null,
+      hilightFeatureAt: null,
       destinations: [],
       destinationId: null,
       mode: 'transit'
@@ -39,7 +41,9 @@ export default class Map extends Component {
 
     this._currentDestinationId = this.local.destinationId;
     this._currentMode = this.local.mode;
-    this._currentHilightCoordinates = this.local.hilightCoordinates;
+    this._currentCenter = this.local.center;
+
+    this._isFeatureSelected = false;
   }
 
   setState () {
@@ -70,13 +74,27 @@ export default class Map extends Component {
     this.map.on('mouseleave', 'hexgrid', () => {
       this.map.getCanvas().style.cursor = '';
     });
+    let fdTimeout = null;
+    this.map.on('click', (e) => {
+      this._isFeatureSelected = false;
+      this.local.hilightFeatureAt = null;
+      this.emit(`${this.id}:mapClick`);
+      if (fdTimeout) clearTimeout(fdTimeout);
+      fdTimeout = setTimeout(() => {
+        if (!this._isFeatureSelected) {
+          let geojson = layerSelection('selection').source.data;
+          this.map.getSource('selection').setData(geojson);
+          this.emit(`${this.id}:featureDeselect`);
+        }
+      }, 100);
+    });
     this.map.on('click', 'hexgrid', (e) => {
       const feature = e.features[0];
+      this._isFeatureSelected = true;
       this.emit(`${this.id}:featureClick`, feature);
 
       let geojson = layerSelection('selection').source.data;
       geojson.features[0].geometry.coordinates = feature.geometry.coordinates[0].slice();
-      console.log(geojson.features[0].geometry);
       this.map.getSource('selection').setData(geojson);
     });
 
@@ -92,7 +110,29 @@ export default class Map extends Component {
     if (this.local.mode !== this._currentMode || this.local.destinationId !== this._currentDestinationId) {
       this.setDestination(this.local.mode, this.local.destinationId);
     }
-    this.setHilight(this.local.hilightCoordinates);
+    if (this.local.hilightFeatureAt) {
+      let geojson = layerSelection('selection').source.data;
+      this.map.getSource('selection').setData(geojson);
+      // find feature
+      const features = this.assets['hexgrid.geojson'].features;
+      let feature = null;
+      const pt = point(this.local.hilightFeatureAt);
+      for (let i = 0; i < features.length; i++) {
+        const f = features[i];
+        if (pointInPolygon(pt, f.geometry)) {
+          feature = f;
+          break;
+        }
+      }
+
+      if (feature) {
+        geojson.features[0].geometry.coordinates = feature.geometry.coordinates[0].slice();
+        this.map.getSource('selection').setData(geojson);
+        // this.local.center = centroid(feature.geometry).geometry.coordinates;
+        this.emit(`${this.id}:featureClick`, feature);
+      }
+    }
+    this.setHilight(this.local.center);
 
     // if (this.local.visible !== this.state.main.visible) {
       // dirty = true;
@@ -192,6 +232,8 @@ export default class Map extends Component {
      */
     let hexSelection = layerSelection('selection');
     this.map.addLayer(hexSelection, 'airport-label');
+
+    this.emit('map:ready');
   }
 
   setDestination (mode, destinationId) {
@@ -223,30 +265,29 @@ export default class Map extends Component {
       return ((t *= 2) <= 1 ? Math.pow(t, e) : 2 - Math.pow(2 - t, e)) / 2;
     }
 
-
-    let coord = [19.023632, 50.234461];
+    let coord = defaultCenter;
     let targetZoom = 13.5;
     if (coordinates) {
       targetZoom = 13.5;
       coord = coordinates.slice();
     } else {
-      targetZoom = 10.0;
+      targetZoom = defaultZoom;
     }
     const currentZoom = this.map.getZoom();
     let d = 1.0;
-    if (this._currentHilightCoordinates) {
-      d = distance(point(this._currentHilightCoordinates), point(coord));
+    if (this._currentCenter) {
+      d = distance(point(this._currentCenter), point(coord));
     }
     let speed = 0.2 * d;
-    this._currentHilightCoordinates = coord.slice();
+    this._currentCenter = coord.slice();
     this.map.flyTo({
-      center: this._currentHilightCoordinates,
+      center: this._currentCenter,
       zoom: targetZoom,
       screenSpeed: speed,
       easing: polyInOut,
       curve: 1
     });
+    this.local.center = this._currentCenter.slice();
   }
-
 
 }

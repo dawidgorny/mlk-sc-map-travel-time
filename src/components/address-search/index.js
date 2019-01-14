@@ -17,6 +17,7 @@ export default class AddressSearch extends Component {
     this.emit = emit;
     this.isDirty = false;
     this.local = state.components[id] = merge([{
+      visible: true,
       text: '',
       value: [],
       items: [ /* ... , [label, value], ... */ ]
@@ -49,7 +50,7 @@ export default class AddressSearch extends Component {
       this.setState();
     }
     this.isDirty = false;
-    return dirty;
+    return true;
   }
 
   createElement () {
@@ -88,7 +89,7 @@ export default class AddressSearch extends Component {
     };
 
     return html`
-    <div class="absolute top-0 left-0 pt3 pb1 pl5 pr3 ${sl['address-search']}" style="">
+    <div class="absolute top-0 left-0 pt3 pb1 pl5 pr3 ${sl['address-search']} ${l.visible ? '' : 'dn'}" style="">
       <p class="w-100 bb pb1 ma0" style="border-color: #10069F;">
         <input class="input-reset ${sl['input-field']}" autocomplete="off" tabindex="0" value="${l.text}" onchange=${onInputChange} onkeyup=${onInputChange}>
         <button class="input-reset button-reset fr ${sl['search-button']}" onclick=${onSearchButtonClick}><img width="12" src=${IcoSearchImage}></button>

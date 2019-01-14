@@ -5,29 +5,33 @@ export default function mainStore (state, emitter) {
   state.main = {
     loading: true
   };
-  
 
   emitter.on('DOMContentLoaded', function () {
     emitter.on('map:load', mapLoad);
-    emitter.on('map:assetsLoad', () => { mapAssetsLoad() });
+    emitter.on('map:assetsLoad', () => { mapAssetsLoad(); });
+    emitter.on('map:ready', mapReady);
     emitter.on('mode-switch:valueChange', modeSwitchValueChange);
     emitter.on('destination:valueChange', destinationValueChange);
     emitter.on('address-search:value', addressSearchValue);
     emitter.on('map:featureClick', mapFeatureClick);
+    emitter.on('map:featureDeselect', mapFeatureDeselect);
   });
 
   function mapLoad () {
-    // state.main.loading = false;
     render();
   }
 
   function mapAssetsLoad () {
-    state.main.loading = false;
-    state.components['loading-overlay'].visible = false;
     state.components['destination'].items = state.components['map'].destinations.map((d) => [d.label, d.id]);
     state.components['destination'].value = state.components['map'].destinations[0].id;
     state.components['destination'].text = state.components['map'].destinations[0].label;
     state.components['map'].destinationId = state.components['destination'].value;
+    render();
+  }
+
+  function mapReady () {
+    state.main.loading = false;
+    state.components['loading-overlay'].visible = false;
     render();
   }
 
@@ -42,27 +46,34 @@ export default function mainStore (state, emitter) {
   }
 
   function addressSearchValue (value, label) {
-    state.components['map'].hilightCoordinates = value;
+    state.components['map'].center = value.slice();
+    state.components['map'].hilightFeatureAt = value.slice();
     render();
   }
 
   function mapFeatureClick (feature) {
     const prop = feature.properties;
-    console.log(feature.properties);
     const tooltip = state.components['tooltip'];
+    state.components['address-search'].visible = false;
     tooltip.visible = true;
     tooltip.districtName = prop['district_full_text'];
     tooltip.addressCount = prop['address_count'];
     tooltip.durationValue = prop['duration_value'];
     tooltip.durationText = prop['duration_text'];
     tooltip.durationMood = prop['duration_mood'];
-    
-    // TODO: move only if far from current coordinates
+
     const center = centroid(feature.geometry);
-    state.components['map'].hilightCoordinates = center.geometry.coordinates;
+    state.components['map'].center = center.geometry.coordinates;
     render();
   }
-  
+
+  function mapFeatureDeselect () {
+    state.components['tooltip'].visible = false;
+    state.components['address-search'].visible = true;
+    state.components['map'].hilightCoordinates = null;
+    render();
+  }
+
   function render () {
     emitter.emit('render');
   }
