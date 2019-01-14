@@ -11,7 +11,6 @@ import style from './main.css';
 
 export default function mainView (state, emit) {
   style.use();
-  console.log(style);
   const sl = style.locals;
   return html`
     <div class=" db w-100 h-100" style="min-width: 320px;">
