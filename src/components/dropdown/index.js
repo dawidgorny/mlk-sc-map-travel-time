@@ -63,6 +63,11 @@ export default class Dropdown extends Component {
 
       let selectNode = element.querySelector('select.' + this.id + '__' + style.locals['dropdown-control']);
 
+      /* to ensure first selected on chrome */
+      selectNode.selectedIndex = 0;
+      selectNode.value = this.local.items[0][1];
+      /* -- */
+
       let optionNodeList = Array.prototype.slice.call(selectNode.options);
       optionNodeList.forEach((optionNode) => {
         this._accessibleDropdownOptions.push(optionNode.innerHTML.toLowerCase().trim());
@@ -78,6 +83,7 @@ export default class Dropdown extends Component {
         }
       });
       this._accessibleDropdown.init();
+
     }
   }
 }
