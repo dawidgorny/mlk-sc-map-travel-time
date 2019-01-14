@@ -3,7 +3,7 @@
 
 Heatmap visualising travel times to important locations from the city cultural live point of view
 
-![Heatmap visualising travel times](preview.jpg "Heatmap visualising travel times")
+![Heatmap visualising travel times](preview.png "Heatmap visualising travel times")
 
 # Authors
 - Dawid Górny
