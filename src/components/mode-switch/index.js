@@ -16,14 +16,10 @@ export default class ModeSwitch extends Component {
     this.emit = emit;
     this.isDirty = false;
     this.local = state.components[id] = merge([{
+      visible: false,
       value: 'transit'
     }, state.components && state.components[id] ? state.components[id] : {}]);
-    this.setState();
     style.use();
-  }
-
-  setState () {
-    
   }
 
   load (element) {
@@ -31,22 +27,18 @@ export default class ModeSwitch extends Component {
   }
 
   update () {
-    let dirty = this.isDirty | false;
-    
-    if (dirty) {
-      this.setState();
-    }
-    return dirty;
+    return true;
   }
 
   createElement () {
-    const s = this.local;
+    const l = this.local;
+    const sl = style.locals;
 
     const onClick = (e) => {
       const value = e.currentTarget.getAttribute('data-toggle-value');
-      s.value = value;
+      l.value = value;
       this.isDirty = true;
-      this.emit('render');
+      this.rerender();
       this.emit(`${this.id}:valueChange`, value);
       e.preventDefault();
       e.stopPropagation();
@@ -54,9 +46,9 @@ export default class ModeSwitch extends Component {
     };
 
     return html`
-    <div class="fl pr0 pt3 ${style.locals['mode-switch']}">
-      <a data-toggle-value="transit" class="pl0 pr2 fl ${s.value === 'transit' ? style.locals['active'] : ''}" href="#" onclick=${onClick}><img src="${TramBlueImage}" width="60" height="29"></a>
-      <a data-toggle-value="driving" class="pl0 pr0 fl ${s.value === 'driving' ? style.locals['active'] : ''}" href="#" onclick=${onClick}><img src="${CarBlueImage}" width="60" height="29"></a>
+    <div class="fl pr0 pt3 ${style.locals['mode-switch']}"  style="${l.visible ? '' : 'visibility:hidden'}">
+      <a data-toggle-value="transit" class="pl0 pr2 fl ${l.value === 'transit' ? sl['active'] : ''}" href="#" onclick=${onClick}><img src="${TramBlueImage}" width="60" height="29"></a>
+      <a data-toggle-value="driving" class="pl0 pr0 fl ${l.value === 'driving' ? sl['active'] : ''}" href="#" onclick=${onClick}><img src="${CarBlueImage}" width="60" height="29"></a>
     </div>`;
   }
 }

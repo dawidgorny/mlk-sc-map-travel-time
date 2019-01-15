@@ -13,6 +13,7 @@ export default class Dropdown extends Component {
     this.state = state;
     this.emit = emit;
     this.local = state.components[id] = merge([{
+      visible: false,
       text: '',
       value: '',
       items: [ /* [label, value] */ ]
@@ -50,7 +51,7 @@ export default class Dropdown extends Component {
     };
 
     return html`
-    <div class="fl ph0 pb3 db w-50 ${sl['dropdown']}" style="">
+    <div class="fl ph0 pb3 w-50 db ${sl['dropdown']}" style="${l.visible ? '' : 'visibility:hidden'}">
       <select onchange=${onSelectChange} class="drop-down ${this.id + '__' + sl['dropdown-control']} ${sl['dropdown-control']}" title="Destination">
         ${raw(l.items.map((it) => `<option value="${it[1]}" ${it[1] === l.value ? 'selected' : ''}>${it[0]}</option>`).join(''))}
       </select>
