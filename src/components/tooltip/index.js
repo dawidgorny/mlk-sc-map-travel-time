@@ -52,7 +52,7 @@ export default class TooltipSwitch extends Component {
       <p class="w-100 bb pb1 ma0 b" style="border-color: #10069F;">${l.districtName}</p>
       <div class="mv2">
         <p class="pa0 ma0">${transl.tooltip['addressCountLabel'] || 'adresy w tym obszarze:'} <strong>${l.addressCount}</strong></p>
-        <p class="pa0 ma0 fl">${transl.tooltip['durationLabel'] || 'czas dojazdu:'} <strong>${l.durationText}</strong></p><img class="ph1 fl ${sl['ico-mood']}" src=${ico}>
+        <p class="pa0 ma0 fl">${transl.tooltip['durationLabel'] || 'czas dojazdu:'} <strong>${l.durationText.replace('hour', 'h').replace('mins', 'min')}</strong></p><img class="ph1 fl ${sl['ico-mood']}" src=${ico}>
       </div>
     </div>`;
   }
