@@ -96,7 +96,7 @@
   }
 
   :global .options {
-    max-height: 200px;
+    max-height: 372px;
     overflow: scroll;
     border: none;
     border-bottom: 1px solid #0F059E;
@@ -105,7 +105,7 @@
     background: #fff;
     position: absolute;
     width: 100%;
-    z-index: 100;
+    z-index: 5;
     max-width: 300px;
     overflow-x: hidden;
     overflow-y: auto;
