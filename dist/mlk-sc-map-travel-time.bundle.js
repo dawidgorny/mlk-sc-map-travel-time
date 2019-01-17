@@ -35,17 +35,17 @@ const n=t=>"undefined"!=typeof self&&self&&t in self?self[t]:"undefined"!=typeof
     </div>`}}var he=n(21),fe=n.n(he);class me extends h.a{constructor(e,t,n){super(e,t,n),this.id=e,this.state=t,this.emit=n,this.local=t.components[e]=w([{visible:!0},t.components&&t.components[e]?t.components[e]:{}]),fe.a.use()}load(e){}update(){return!0}createElement(){const e=this.local,t=fe.a.locals;return d.a`
     <div class="absolute top-0 left-0 w-100 h-100 pa3 tc v-mid bg-black o-60 ${e.visible?"":t["fade-out"]}" style="z-index:100">
       <div class="dib v-mid o-80 ${t["loader-anim"]}"></div>
-    </div>`}}var Ae=n(22),ye=n.n(Ae);function ge(e,t,n,o){return d.a`
-  <div class="fl" style="width: ${t}%; padding-right: 1px;">
-    <div style="background-color: ${o}; height: 8px;"></div>
-    <img class="fl pv2" src=${n} style="min-width: 14px;">
-    <span class="fl w-100" style="color: ${o};">${e<1?"<1":e}%</span>
-  </div>`}const ve=n(86);class be extends h.a{constructor(e,t,n){super(e,t,n),this.id=e,this.state=t,this.emit=n,this.isDirty=!1,this.local=t.components[e]=w([{values:[0,0,0,0],minPieceWidth:35,piecePadding:1,totalWidth:736},t.components&&t.components[e]?t.components[e]:{}]),ye.a.use()}load(e){}update(){return!0}createElement(){const e=this.local,t=ye.a.locals,n=e.totalWidth,o=Math.ceil(e.minPieceWidth/parseFloat(n)*100);let r=e.values.slice();r=(r=r.map((e,t)=>({i:t,v:e}))).sort((e,t)=>e.v-t.v);for(let e of r)e.v<o&&(r[r.length-1].v-=o-e.v,e.v=o);let i=(r=(r=r.sort((e,t)=>e.i-t.i)).map(e=>e.v)).reduce((e,t)=>e+t);return d.a`
+    </div>`}}var Ae=n(22),ye=n.n(Ae);function ge(e,t,n,o,r){return d.a`
+  <div class="fl" style="width: ${n}%; padding-right: 1px;">
+    <div style="background-color: ${r}; height: 8px;"></div>
+    <img class="fl pv2" src=${o} style="min-width: 14px;${0===e&&t<11?"float:right;margin-right:3px;":""}">
+    <span class="fl w-100" style="color: ${r};min-width: fit-content;width: 100%;${0===e&&t<11?"float:right;margin-right:3px;":""}">${t<1?"<1":t}%</span>
+  </div>`}const ve=n(86);class be extends h.a{constructor(e,t,n){super(e,t,n),this.id=e,this.state=t,this.emit=n,this.isDirty=!1,this.local=t.components[e]=w([{values:[0,0,0,0],minPieceWidth:1,piecePadding:1,totalWidth:736},t.components&&t.components[e]?t.components[e]:{}]),ye.a.use()}load(e){}update(){return!0}createElement(){const e=this.local,t=ye.a.locals,n=e.totalWidth,o=Math.ceil(e.minPieceWidth/parseFloat(n)*100);let r=e.values.slice();r=(r=r.map((e,t)=>({i:t,v:e}))).sort((e,t)=>e.v-t.v);for(let e of r)e.v<o&&(r[r.length-1].v-=o-e.v,e.v=o);let i=(r=(r=r.sort((e,t)=>e.i-t.i)).map(e=>e.v)).reduce((e,t)=>e+t);return d.a`
     <div class="${t.legend} ${i<100?"dn":""}">
-     ${ge(e.values[0],r[0],ie.a,ve.scale1)}
-     ${ge(e.values[1],r[1],ae.a,ve.scale2)}
-     ${ge(e.values[2],r[2],ce.a,ve.scale3)}
-     ${ge(e.values[3],r[3],de.a,ve.scale4)}
+     ${ge(0,e.values[0],r[0],ie.a,ve.scale1)}
+     ${ge(1,e.values[1],r[1],ae.a,ve.scale2)}
+     ${ge(2,e.values[2],r[2],ce.a,ve.scale3)}
+     ${ge(3,e.values[3],r[3],de.a,ve.scale4)}
     </div>`}}var we=n(23),_e=n.n(we);function xe(e,t){_e.a.use();const n=_e.a.locals;return d.a`
     <div class=" db w-100 h-100" style="min-width: 320px;">
       <div class="flex flex-wrap-reverse db w-100">
@@ -68,7 +68,7 @@ const n=t=>"undefined"!=typeof self&&self&&t in self?self[t]:"undefined"!=typeof
       </div>
       <div class="flex flex-wrap-reverse w-100 ph2 pt2">
         <div class="fl ph1" style="width: 20rem;"><p> </p></div>
-        <div class="fl pl0 pr0 db ${n["legend-container"]}">
+        <div class="fl ph4 db ${n["legend-container"]}">
           ${this.state.cache(be,"legend").render()}
         </div>
       </div>

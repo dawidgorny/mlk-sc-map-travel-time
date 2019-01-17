@@ -34,7 +34,7 @@ export default function mainView (state, emit) {
       </div>
       <div class="flex flex-wrap-reverse w-100 ph2 pt2">
         <div class="fl ph1" style="width: 20rem;"><p> </p></div>
-        <div class="fl pl0 pr0 db ${sl['legend-container']}">
+        <div class="fl ph4 db ${sl['legend-container']}">
           ${this.state.cache(Legend, 'legend').render()}
         </div>
       </div>

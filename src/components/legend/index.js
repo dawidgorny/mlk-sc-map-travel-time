@@ -23,7 +23,7 @@ export default class Legend extends Component {
     this.isDirty = false;
     this.local = state.components[id] = merge([{
       values: [0, 0, 0, 0],
-      minPieceWidth: 35,
+      minPieceWidth: 1,
       piecePadding: 1,
       totalWidth: 736
     }, state.components && state.components[id] ? state.components[id] : {}]);
@@ -59,13 +59,13 @@ export default class Legend extends Component {
     val = val.map((x) => x.v);
 
     let sum = val.reduce((a, c) => a + c);
-    
+
     return html`
     <div class="${sl['legend']} ${sum < 100 ? 'dn' : ''}">
-     ${sectionElement(l.values[0], val[0], IcoMood1Image, palette['scale1'])}
-     ${sectionElement(l.values[1], val[1], IcoMood2Image, palette['scale2'])}
-     ${sectionElement(l.values[2], val[2], IcoMood3Image, palette['scale3'])}
-     ${sectionElement(l.values[3], val[3], IcoMood4Image, palette['scale4'])}
+     ${sectionElement(0, l.values[0], val[0], IcoMood1Image, palette['scale1'])}
+     ${sectionElement(1, l.values[1], val[1], IcoMood2Image, palette['scale2'])}
+     ${sectionElement(2, l.values[2], val[2], IcoMood3Image, palette['scale3'])}
+     ${sectionElement(3, l.values[3], val[3], IcoMood4Image, palette['scale4'])}
     </div>`;
   }
 }
