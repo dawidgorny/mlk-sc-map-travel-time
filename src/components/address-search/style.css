@@ -43,6 +43,7 @@
   border: 0;
   box-shadow: none;
   width: 256px !important;
+  font-family: inherit;
 
   .pac-item {
     border: 0;
