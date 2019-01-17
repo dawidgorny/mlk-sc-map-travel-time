@@ -38,8 +38,7 @@
 }
 
 :global .pac-container {
-  /* filter: grayscale(100%); */
-  margin-top: 16px;
+  margin-top: 18px;
   background-color: rgba(225,225,225,0.9);
   border: 0;
   box-shadow: none;
@@ -69,4 +68,7 @@
 
 :global .hdpi.pac-logo:after {
   filter: grayscale(100%);
+  opacity: 0.5;
+  margin-right: 2px;
+  margin-bottom: 2px;
 }
