@@ -36,6 +36,9 @@ export default class FrontentApp {
       state.components['legend'] = {
         assetsPathPrefix
       };
+      state.components['tooltip'] = {
+        assetsPathPrefix
+      };
     });
     this.app.route('*', mainView);
     this.app.mount(this.mapContainer);

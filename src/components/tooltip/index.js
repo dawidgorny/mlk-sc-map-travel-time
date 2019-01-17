@@ -18,6 +18,7 @@ export default class TooltipSwitch extends Component {
     this.emit = emit;
     this.isDirty = false;
     this.local = state.components[id] = merge([{
+      assetsPathPrefix: '',
       visible: false,
       districtName: '',
       addressCount: 0,
@@ -52,7 +53,7 @@ export default class TooltipSwitch extends Component {
       <p class="w-100 bb pb1 ma0" style="border-color: #10069F;">${transl['tooltip.districtLabel'] || ''}<strong>${l.districtName}</strong></p>
       <div class="mv2">
         <p class="pa0 ma0">${transl['tooltip.addressCountLabel'] || 'adresy w tym obszarze: '}<strong>${l.addressCount}</strong></p>
-        <p class="pa0 ma0 fl">${transl['tooltip.durationLabel'] || 'czas dojazdu: '}<strong>${l.durationText.replace('hour', 'h').replace('mins', 'min')}</strong></p><img class="ph1 fl ${sl['ico-mood']}" src=${ico}>
+        <p class="pa0 ma0 fl">${transl['tooltip.durationLabel'] || 'czas dojazdu: '}<strong>${l.durationText.replace('hour', 'h').replace('mins', 'min')}</strong></p><img class="ph1 fl ${sl['ico-mood']}" src=${l['assetsPathPrefix'] + ico}>
       </div>
     </div>`;
   }
