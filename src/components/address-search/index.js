@@ -28,7 +28,8 @@ export default class AddressSearch extends Component {
       text: '',
       value: [],
       items: [ /* ... , [label, value], ... */ ],
-      bbox: [18.909330207135934, 50.16298654333147, 19.118374382500072, 50.29340052573354]
+      bbox: [18.909330207135934, 50.16298654333147, 19.118374382500072, 50.29340052573354],
+      newBBox: false
     }, state.components && state.components[id] ? state.components[id] : {}]);
     style.use();
 
@@ -47,9 +48,14 @@ export default class AddressSearch extends Component {
   }
 
   update () {
-    let dirty = this.isDirty | false;
-
-    this.isDirty = false;
+    if (this.local.newBBox && this.autocomplete) {
+      let bbox = this.local.bbox;
+      let sw = new google.maps.LatLng(bbox[1], bbox[0]);
+      let ne = new google.maps.LatLng(bbox[3], bbox[2]);
+      let bounds = new google.maps.LatLngBounds(sw, ne);
+      this.autocomplete.setBounds(bounds);
+      this.local.newBBox = false;
+    }
     return true;
   }
 
@@ -96,7 +102,7 @@ export default class AddressSearch extends Component {
     return html`
     <div class="absolute top-0 left-0 pt3 pb1 pr3 ${sl['address-search']} ${l.visible ? '' : 'dn'}" style="">
       <p class="w-100 bb pb1 ma0" style="border-color: #10069F;">
-        <input class="input-reset ${sl['input-field']}" autocomplete="off" tabindex="0" value="${l.text}" onchange=${onInputChange} onkeyup=${onInputChange}>
+        <input class="input-reset ${sl['input-field']}" autocomplete="off" tabindex="0" value="${l.text}">
         <button class="input-reset button-reset fr ${sl['search-button']}" onclick=${onSearchButtonClick}><img width="12" src=${IcoSearchImage}></button>
       </p>
       <div class="mv2 ${sl['results']}">

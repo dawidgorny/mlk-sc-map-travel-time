@@ -33,6 +33,7 @@ export default function mainStore (state, emitter) {
 
     const hexgridBBox = bbox(assets['hexgrid.geojson']);
     state.components['address-search'].bbox = hexgridBBox;
+    state.components['address-search'].newBBox = true;
 
     render();
   }
