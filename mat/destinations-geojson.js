@@ -17,10 +17,11 @@ content.features = content.features.map((f) => {
 });
 
 // make Strefa Kultury first
-let features12 = content.features[12];
+let firstIdx = content.features.findIndex((v) => v.properties['place-id'] === '334195793031'); // Strefa Kultury id `334195793031`
+let featureFirst = content.features[firstIdx];
 let featuresTmp = content.features.slice();
-featuresTmp.splice(12, 1);
-featuresTmp.splice(0, 0, features12);
+featuresTmp.splice(firstIdx, 1);
+featuresTmp.splice(0, 0, featureFirst);
 content.features = featuresTmp;
 
 console.log(content.features[1]);
