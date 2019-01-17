@@ -33,6 +33,9 @@ export default class FrontentApp {
       state.components['mode-switch'] = {
         assetsPathPrefix
       };
+      state.components['legend'] = {
+        assetsPathPrefix
+      };
     });
     this.app.route('*', mainView);
     this.app.mount(this.mapContainer);

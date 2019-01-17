@@ -4,6 +4,8 @@ import Component from 'choo/component';
 import style from './style.css';
 import merge from '../../utils/merge';
 
+import ArrowDownImage from './icon-ios7-arrow-down-128.png';
+
 const AccessibleDropdown = require('./local_modules/accessible-dropdown');
 
 export default class Dropdown extends Component {
@@ -53,7 +55,7 @@ export default class Dropdown extends Component {
 
     return html`
     <div class="fl ph0 pb3 w-50 db ${sl['dropdown']}" style="${l.visible ? '' : 'visibility:hidden'}">
-      <select onchange=${onSelectChange} class="drop-down ${this.id + '__' + sl['dropdown-control']} ${sl['dropdown-control']}" title="Destination">
+      <select onchange=${onSelectChange} class="drop-down ${this.id + '__' + sl['dropdown-control']} ${sl['dropdown-control']}" title="Destination" style="background-image:url('${l['assetsPathPrefix'] + ArrowDownImage}');">
         ${raw(l.items.map((it) => `<option value="${it[1]}" ${it[1] === l.value ? 'selected' : ''}>${it[0]}</option>`).join(''))}
       </select>
     </div>`;

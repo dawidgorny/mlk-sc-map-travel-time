@@ -62,10 +62,10 @@ export default class Legend extends Component {
 
     return html`
     <div class="${sl['legend']} ${sum < 100 ? 'dn' : ''}">
-     ${sectionElement(0, l.values[0], val[0], IcoMood1Image, palette['scale1'])}
-     ${sectionElement(1, l.values[1], val[1], IcoMood2Image, palette['scale2'])}
-     ${sectionElement(2, l.values[2], val[2], IcoMood3Image, palette['scale3'])}
-     ${sectionElement(3, l.values[3], val[3], IcoMood4Image, palette['scale4'])}
+     ${sectionElement(0, l.values[0], val[0], l['assetsPathPrefix'] + IcoMood1Image, palette['scale1'])}
+     ${sectionElement(1, l.values[1], val[1], l['assetsPathPrefix'] + IcoMood2Image, palette['scale2'])}
+     ${sectionElement(2, l.values[2], val[2], l['assetsPathPrefix'] + IcoMood3Image, palette['scale3'])}
+     ${sectionElement(3, l.values[3], val[3], l['assetsPathPrefix'] + IcoMood4Image, palette['scale4'])}
     </div>`;
   }
 }
