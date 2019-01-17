@@ -41,6 +41,8 @@
 
 
 :local .tooltip-container {
+  position: absolute;
+  top: 0;
   pointer-events: none;
   border: 0;
   width: 320px;
@@ -51,6 +53,9 @@
   @media screen and (max-width: 650px) {
     width: 100%;
     z-index: 3;
+    top: unset;
+    bottom: 0;
+
     :global .tooltip-body {
       bottom: 0;
       padding-left: .5rem;

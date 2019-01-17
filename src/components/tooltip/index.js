@@ -49,7 +49,7 @@ export default class TooltipSwitch extends Component {
     if (l.durationMood > 3) ico = IcoMood4Image;
 
     return html`
-    <div class="absolute pt3 pb3 pl2 pr3 ${l.visible ? '' : 'dn'} tooltip-body ${sl['tooltip']}">
+    <div class="pt3 pb3 pl2 pr3 ${l.visible ? '' : 'dn'} tooltip-body ${sl['tooltip']}">
       <p class="w-100 bb pb1 ma0" style="border-color: #10069F;">${transl['tooltip.districtLabel'] || ''}<strong>${l.districtName}</strong></p>
       <div class="mv2">
         <p class="pa0 ma0">${transl['tooltip.addressCountLabel'] || 'adresy w tym obszarze: '}<strong>${l.addressCount}</strong></p>

@@ -6,6 +6,12 @@
   color: #10069F;
 }
 
+:local .input-field-container {
+  background: no-repeat right 7px top 0;
+  background-size: 5%;
+  line-height: 1;
+}
+
 :local .input-field, .input-field:focus {
   width: 85%;
   border: 0;

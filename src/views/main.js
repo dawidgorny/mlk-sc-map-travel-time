@@ -27,7 +27,7 @@ export default function mainView (state, emit) {
         <div class="absolute top-0 left-0 ${sl['address-search-container']}">
           ${state.cache(AddressSearch, 'address-search').render()}
         </div>
-        <div class="absolute top-0 left-0 w-100 h-100 ${sl['tooltip-container']}" style="padding-bottom:130px;">
+        <div class="${sl['tooltip-container']}" style="padding-bottom:130px;">
           ${this.state.cache(Tooltip, 'tooltip').render()}
         </div>
         ${this.state.cache(LoadingOverlay, 'loading-overlay').render()}
