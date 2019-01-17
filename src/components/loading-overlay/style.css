@@ -1,5 +1,10 @@
 $fade-out-duration: 1s
 
+:local .loading-overlay {
+  background-clip: content-box;
+  padding-bottom: 130px;
+}
+
 :local .loader-anim {
   width: 100%;
   height: 100%;

@@ -27,7 +27,7 @@ export default class LoadingOverlay extends Component {
     const l = this.local;
     const sl = style.locals;
     return html`
-    <div class="absolute top-0 left-0 w-100 h-100 pa3 tc v-mid bg-black o-60 ${l.visible ? '' : sl['fade-out']}" style="z-index:100">
+    <div class="absolute top-0 left-0 w-100 h-100 pa0 tc v-mid bg-black o-60 ${sl['loading-overlay']} ${l.visible ? '' : sl['fade-out']}" style="z-index:100">
       <div class="dib v-mid o-80 ${sl['loader-anim']}"></div>
     </div>`;
   }

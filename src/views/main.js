@@ -22,17 +22,17 @@ export default function mainView (state, emit) {
           ${state.cache(Dropdown, 'destination').render()}
         </div>
       </div>
-      <div class="relative dib w-100 h-100">
+      <div class="relative db w-100 h-100" style="padding-bottom:130px;margin-bottom: -130px;">
         ${state.cache(Map, 'map').render()}
         <div class="absolute top-0 left-0 ${sl['address-search-container']}">
           ${state.cache(AddressSearch, 'address-search').render()}
         </div>
-        <div class="absolute top-0 left-0 w-100 h-100 ${sl['tooltip-container']}">
+        <div class="absolute top-0 left-0 w-100 h-100 ${sl['tooltip-container']}" style="padding-bottom:130px;">
           ${this.state.cache(Tooltip, 'tooltip').render()}
         </div>
         ${this.state.cache(LoadingOverlay, 'loading-overlay').render()}
       </div>
-      <div class="flex flex-wrap-reverse w-100 ph2 pt2">
+      <div class="flex flex-wrap-reverse w-100 ph2 pt2" style="margin-top:-70px">
         <div class="fl ph1" style="width: 20rem;"><p> </p></div>
         <div class="fl ph4 db ${sl['legend-container']}">
           ${this.state.cache(Legend, 'legend').render()}
