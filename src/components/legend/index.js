@@ -58,8 +58,10 @@ export default class Legend extends Component {
     val = val.sort((a, b) => a.i - b.i);
     val = val.map((x) => x.v);
 
+    let sum = val.reduce((a, c) => a + c);
+    
     return html`
-    <div class="${sl['legend']}">
+    <div class="${sl['legend']} ${sum < 100 ? 'dn' : ''}">
      ${sectionElement(l.values[0], val[0], IcoMood1Image, palette['scale1'])}
      ${sectionElement(l.values[1], val[1], IcoMood2Image, palette['scale2'])}
      ${sectionElement(l.values[2], val[2], IcoMood3Image, palette['scale3'])}
