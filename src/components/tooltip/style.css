@@ -4,6 +4,11 @@
   /* width: 320px; */
   font-size: 10pt;
   color: #10069F;
+
+  p {
+    font-size: 10pt;
+    line-height: 1.5;
+  }
 }
 :local .active {
   
