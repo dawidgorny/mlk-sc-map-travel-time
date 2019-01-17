@@ -23,6 +23,7 @@ export default class Map extends Component {
     this.state = state;
     this.emit = emit;
     this.local = state.components[id] = merge([{
+      assetsPathPrefix: '',
       style: 'mapbox://styles/mapbox/light-v9',
       center: defaultCenter,
       zoom: defaultZoom,
@@ -142,7 +143,7 @@ export default class Map extends Component {
 
   _loadAssets () {
     resl({
-      manifest: require('./assets-manifest'),
+      manifest: require('./assets-manifest')(this.local.assetsPathPrefix),
       onDone: (assets) => {
         this.assets = merge([this.assets, assets]);
         this._loadAssets2();
@@ -172,7 +173,9 @@ export default class Map extends Component {
 
     let manifest = {};
     manifestArr.forEach((a) => {
-      manifest[a.src] = a;
+      const name = a.src + '';
+      manifest[name] = a;
+      manifest[name].src = this.local.assetsPathPrefix + manifest[name].src;
     });
     
     resl({

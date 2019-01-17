@@ -10,6 +10,7 @@ export default class LoadingOverlay extends Component {
     this.state = state;
     this.emit = emit;
     this.local = state.components[id] = merge([{
+      assetsPathPrefix: '',
       visible: true
     }, state.components && state.components[id] ? state.components[id] : {}]);
     style.use();

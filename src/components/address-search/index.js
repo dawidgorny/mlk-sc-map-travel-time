@@ -24,6 +24,7 @@ export default class AddressSearch extends Component {
     this.emit = emit;
     this.isDirty = false;
     this.local = state.components[id] = merge([{
+      assetsPathPrefix: '',
       visible: false,
       text: '',
       value: [],
@@ -103,7 +104,7 @@ export default class AddressSearch extends Component {
     <div class="absolute top-0 left-0 pt3 pb1 pr3 ${sl['address-search']} ${l.visible ? '' : 'dn'}" style="">
       <p class="w-100 bb pb1 ma0" style="border-color: #10069F;">
         <input class="input-reset ${sl['input-field']}" autocomplete="off" tabindex="0" value="${l.text}">
-        <button class="input-reset button-reset fr ${sl['search-button']}" onclick=${onSearchButtonClick}><img width="12" src=${IcoSearchImage}></button>
+        <button class="input-reset button-reset fr ${sl['search-button']}" onclick=${onSearchButtonClick}><img width="12" src=${l['assetsPathPrefix'] + IcoSearchImage}></button>
       </p>
       <div class="mv2 ${sl['results']}">
         ${l.items.map((it) => html`<a class="pv1 dib w-100 link ${it[1] === l.value ? 'selected' : ''}" data-value="${it[1]}" onclick=${onItemClick}>${it[0]}</div>`)}

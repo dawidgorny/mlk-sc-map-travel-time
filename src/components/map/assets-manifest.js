@@ -1,17 +1,17 @@
-module.exports = {
+module.exports = (assetsPathPrefix) => ({
   'hexgrid.geojson': {
     type: 'text',
-    src: 'hexgrid.geojson',
+    src: assetsPathPrefix + 'hexgrid.geojson',
     parser: JSON.parse
   },
   'destinations.geojson': {
     type: 'text',
-    src: 'destinations.geojson',
+    src: assetsPathPrefix + 'destinations.geojson',
     parser: JSON.parse
   },
   'katowice-polygon.geojson': {
     type: 'text',
-    src: 'katowice-polygon.geojson',
+    src: assetsPathPrefix + 'katowice-polygon.geojson',
     parser: JSON.parse
   }
-};
+});

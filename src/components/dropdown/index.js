@@ -13,6 +13,7 @@ export default class Dropdown extends Component {
     this.state = state;
     this.emit = emit;
     this.local = state.components[id] = merge([{
+      assetsPathPrefix: '',
       visible: false,
       text: '',
       value: '',

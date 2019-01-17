@@ -16,6 +16,7 @@ export default class ModeSwitch extends Component {
     this.emit = emit;
     this.isDirty = false;
     this.local = state.components[id] = merge([{
+      assetsPathPrefix: '',
       visible: false,
       value: 'transit'
     }, state.components && state.components[id] ? state.components[id] : {}]);
@@ -47,8 +48,8 @@ export default class ModeSwitch extends Component {
 
     return html`
     <div class="fl pr0 pt3 ${style.locals['mode-switch']}"  style="${l.visible ? '' : 'visibility:hidden'}">
-      <a data-toggle-value="transit" class="pl0 pr2 fl ${l.value === 'transit' ? sl['active'] : ''}" href="#" onclick=${onClick}><img src="${TramBlueImage}" width="60" height="29"></a>
-      <a data-toggle-value="driving" class="pl0 pr0 fl ${l.value === 'driving' ? sl['active'] : ''}" href="#" onclick=${onClick}><img src="${CarBlueImage}" width="60" height="29"></a>
+      <a data-toggle-value="transit" class="pl0 pr2 fl ${l.value === 'transit' ? sl['active'] : ''}" href="#" onclick=${onClick}><img src="${l['assetsPathPrefix'] + TramBlueImage}" width="60" height="29"></a>
+      <a data-toggle-value="driving" class="pl0 pr0 fl ${l.value === 'driving' ? sl['active'] : ''}" href="#" onclick=${onClick}><img src="${l['assetsPathPrefix'] + CarBlueImage}" width="60" height="29"></a>
     </div>`;
   }
 }
