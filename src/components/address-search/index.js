@@ -5,9 +5,16 @@ import style from './style.css';
 import merge from '../../utils/merge';
 import nanostate from 'nanostate';
 
-import { geocode } from '../../utils/mapbox-api';
+import { geocode as geocodeMapbox } from '../../utils/mapbox-api';
 
 import IcoSearchImage from './ico-search.svg';
+
+let initGoogleMapsAutocompleteReady = false;
+let initGoogleMapsAutocompleteInitialized = false;
+
+window.initGoogleMapsAutocomplete = () => {
+  initGoogleMapsAutocompleteReady = true;
+};
 
 export default class AddressSearch extends Component {
   constructor (id, state, emit) {
@@ -98,6 +105,38 @@ export default class AddressSearch extends Component {
     </div>`;
   }
 
+  afterupdate (element) {
+    if (initGoogleMapsAutocompleteReady && !initGoogleMapsAutocompleteInitialized) {
+      initGoogleMapsAutocompleteInitialized = true;
+
+      let bbox = this.local.bbox;
+      let sw = new google.maps.LatLng(bbox[1], bbox[0]);
+      let ne = new google.maps.LatLng(bbox[3], bbox[2]);
+      let bounds = new google.maps.LatLngBounds(sw, ne);
+
+      // Create the autocomplete object, restricting the search to geographical
+      // location types.
+      // https://developers.google.com/maps/documentation/javascript/reference/places-widget#AutocompleteOptions
+      this.autocomplete = new google.maps.places.Autocomplete(element.querySelector(`input.${style.locals['input-field']}`), {
+        bounds,
+        fields: ['formatted_address', 'geometry.location', 'name', 'vicinity'],
+        types: ['address']
+      });
+      
+      this.autocomplete.addListener('place_changed', () => {
+        let place = this.autocomplete.getPlace();
+        if (place['geometry']) {
+          let loc = place['geometry']['location'];
+
+          let value = [loc.lng(), loc.lat()];
+          let label = place['formatted_address'];
+          this.emit(`${this.id}:value`, value.slice(), label + '');
+        }
+      });
+      
+    }
+  }
+
   _resetInput () {
     this.local.text = '';
     this.local.value = [];
@@ -106,8 +145,13 @@ export default class AddressSearch extends Component {
   }
 
   async _search (query) {
+    return [];
+    // return this._searchMapbox(query);
+  }
+
+  async _searchMapbox (query) {
     if (!query || query.length === 0) return []; /* return empty results if query is empty */
-    let ret = await geocode(this.local.mapboxAccessToken, query, {
+    let ret = await geocodeMapbox(this.local.mapboxAccessToken, query, {
       bbox: this.local.bbox,
       types: ['address'],
       autocomplete: true,

@@ -36,3 +36,37 @@
     padding-left: .5rem;
   }
 }
+
+:global .pac-container {
+  /* filter: grayscale(100%); */
+  margin-top: 16px;
+  background-color: rgba(225,225,225,0.9);
+  border: 0;
+  box-shadow: none;
+  width: 256px !important;
+
+  .pac-item {
+    border: 0;
+    color: #10069F;
+  }
+  .pac-item-selected {
+    border: 0;
+    color: #10069F;
+    background-color: rgba(255,255,255, 0.5);
+
+    .pac-icon-marker {
+
+    }
+  }
+  .pac-item-query {
+    color: #10069F;
+  }
+
+  .pac-icon-marker {
+    filter: grayscale(100%);
+  }
+}
+
+:global .hdpi.pac-logo:after {
+  filter: grayscale(100%);
+}
