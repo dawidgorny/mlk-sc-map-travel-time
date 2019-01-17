@@ -74,7 +74,6 @@ function getStats (features, mode) {
 }
 
 for (let i = 0; i < destinations.length; i++) {
-  if (i === 12) continue; // skip 13th element
   let placeId = destinations[i]['place-id'];
 
   let contentTransit = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/hexgrid-${i}.geojson`)));
