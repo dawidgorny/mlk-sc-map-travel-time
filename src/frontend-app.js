@@ -6,7 +6,7 @@ import styles from './app.css';
 styles.use();
 
 export default class FrontentApp {
-  constructor (mapContainer, mapStyle, mapboxAccessToken, translation, assetsPathPrefix) {
+  constructor (mapContainer, mapStyle, mapboxAccessToken, translation, assetsPathPrefix, options = { mode: 'transit' }) {
     this.mapContainer = mapContainer;
     this.app = choo();
     if (process.env.NODE_ENV !== 'production') {
@@ -18,7 +18,8 @@ export default class FrontentApp {
       state.components['map'] = {
         assetsPathPrefix,
         mapboxAccessToken,
-        style: mapStyle
+        style: mapStyle,
+        mode: options.mode
       };
       state.components['address-search'] = {
         assetsPathPrefix,
@@ -31,10 +32,13 @@ export default class FrontentApp {
         assetsPathPrefix
       };
       state.components['mode-switch'] = {
-        assetsPathPrefix
+        assetsPathPrefix,
+        value: options.mode,
+        enabled: options.mode !== 'diff'
       };
       state.components['legend'] = {
-        assetsPathPrefix
+        assetsPathPrefix,
+        enabled: options.mode !== 'diff'
       };
       state.components['tooltip'] = {
         assetsPathPrefix

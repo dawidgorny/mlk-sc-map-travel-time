@@ -22,6 +22,7 @@ export default class Legend extends Component {
     this.emit = emit;
     this.isDirty = false;
     this.local = state.components[id] = merge([{
+      enabled: true,
       values: [0, 0, 0, 0],
       minPieceWidth: 1,
       piecePadding: 1,
@@ -41,6 +42,8 @@ export default class Legend extends Component {
   createElement () {
     const l = this.local;
     const sl = style.locals;
+
+    if (!l.enabled) return html`<div class="${sl['legend']}} dn"></div>`;
 
     const w = l.totalWidth;
     const minPercent = Math.ceil((l.minPieceWidth / parseFloat(w)) * 100.0);

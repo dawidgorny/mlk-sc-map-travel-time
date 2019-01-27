@@ -202,16 +202,37 @@ export default class Map extends Component {
     /**
      * Process data files and calculate layer colors etc.
      */
-    this.assets['destinations.geojson'].features.forEach((f) => {
-      this.assets[`destinations-data/${f.properties['place-id']}-transit.json`].features.forEach((d) => {
-        d.color = hexColor('transit', d['duration_value']);
-        d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
+    if (this.local.mode === 'diff') {
+      this.assets['destinations.geojson'].features.forEach((f) => {
+        const placeId = f.properties['place-id'];
+        this.assets[`destinations-data/${placeId}-diff.json`] = this.assets[`destinations-data/${placeId}-transit.json`];
+        this.assets[`destinations-data/${placeId}-diff.json`].features.forEach((d, i) => {
+          const transitDuration = d['duration_value'];
+          const drivingDuration = this.assets[`destinations-data/${placeId}-driving.json`].features[i]['duration_value'];
+          const durationDiff = transitDuration - drivingDuration;
+          d['duration_value'] = durationDiff;
+          d['transit_duration_value'] = transitDuration;
+          d['driving_duration_value'] = drivingDuration;
+          d.color = hexColor('diff', d['duration_value']);
+          d['duration_mood'] = hexDurationMood('diff', d['duration_value']);
+        });
       });
-      this.assets[`destinations-data/${f.properties['place-id']}-driving.json`].features.forEach((d) => {
-        d.color = hexColor('driving', d['duration_value']);
-        d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
+    } else {
+      /**
+       * Transit and Driving
+       */
+      this.assets['destinations.geojson'].features.forEach((f) => {
+        const placeId = f.properties['place-id'];
+        this.assets[`destinations-data/${placeId}-transit.json`].features.forEach((d) => {
+          d.color = hexColor('transit', d['duration_value']);
+          d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
+        });
+        this.assets[`destinations-data/${placeId}-driving.json`].features.forEach((d) => {
+          d.color = hexColor('driving', d['duration_value']);
+          d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
+        });
       });
-    });
+    }
 
     /**
      * Add katowice boundary to the map

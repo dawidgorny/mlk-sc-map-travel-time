@@ -16,6 +16,7 @@ export default class ModeSwitch extends Component {
     this.emit = emit;
     this.isDirty = false;
     this.local = state.components[id] = merge([{
+      enabled: true,
       assetsPathPrefix: '',
       visible: false,
       value: 'transit'
@@ -34,6 +35,8 @@ export default class ModeSwitch extends Component {
   createElement () {
     const l = this.local;
     const sl = style.locals;
+
+    if (!l.enabled) return html`<div class="fl pr0 pt3 ${style.locals['mode-switch']}"  style="${l.visible ? '' : 'visibility:hidden'}"></div>`;
 
     const onClick = (e) => {
       const value = e.currentTarget.getAttribute('data-toggle-value');

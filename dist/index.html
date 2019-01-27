@@ -25,7 +25,34 @@
       <div class="mw9 center w-100 vh-10 db">
         <div class="cf w-100">
           <div class="fl w-100 pa2">
-            <div class="pv4"><p>Lorem ipsum</p></div>
+            <div class="pv4"><p></p></div>
+          </div>
+        </div>
+      </div>
+      <div class="mw9 center w-100">
+        <div class="cf w-100">
+          <div class="fl w-100">
+
+<!-- EMBED -->
+            <script type="text/javascript">
+              const mapboxAccessToken = 'pk.eyJ1IjoibWVkaWFsYWJrYXRvd2ljZSIsImEiOiI5eWJ2Wl9JIn0.r0Uh_NXpnVDXjvCHZpbC9g';
+              const mapStyle = 'mapbox://styles/medialabkatowice/cje8gw06sc9yu2qpdrs9lprcm';
+              const asstetsPathPrefix = '';
+            </script>
+
+             <!-- important to set height -->
+            <div class="" style="height: 80vh;">
+              <!-- map container -->
+              <div id="map1" style=""></div>
+              <!-- END map container -->
+            </div>
+            <script type="text/javascript">
+              const mapContainer1 = '#map1';
+              const map1 = travelTimeMap.create(mapContainer1, mapStyle, mapboxAccessToken, travelTimeMap.lang['pl'], asstetsPathPrefix, { mode: 'diff' });
+            </script>
+
+<!-- END EMBED -->
+
           </div>
         </div>
       </div>
@@ -38,16 +65,15 @@
              <!-- important to set height -->
             <div class="" style="height: 80vh;">
               <!-- map container -->
-              <div id="map1" style=""></div>
+              <div id="map2" style=""></div>
               <!-- END map container -->
             </div>
             <script type="text/javascript">
-              const mapboxAccessToken = 'pk.eyJ1IjoibWVkaWFsYWJrYXRvd2ljZSIsImEiOiI5eWJ2Wl9JIn0.r0Uh_NXpnVDXjvCHZpbC9g';
-              const mapContainer = '#map1';
-              const mapStyle = 'mapbox://styles/medialabkatowice/cje8gw06sc9yu2qpdrs9lprcm';
-              const asstetsPathPrefix = '';
-              const map = travelTimeMap.create(mapContainer, mapStyle, mapboxAccessToken, travelTimeMap.lang['pl'], asstetsPathPrefix);
+              const mapContainer2 = '#map2';
+              const map2 = travelTimeMap.create(mapContainer2, mapStyle, mapboxAccessToken, travelTimeMap.lang['pl'], asstetsPathPrefix, { mode: 'transit' });
             </script>
+
+
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSZvv0ujW4Ky2lTgqxwt6SGmOgc9YggGU&libraries=places&callback=initGoogleMapsAutocomplete" async defer></script>
 
 <!-- END EMBED -->
@@ -58,7 +84,7 @@
       <div class="mw9 center w-100 vh-10">
         <div class="cf w-100">
           <div class="fl w-100 pa2">
-            <div class="pv4"><p>Lorem ipsum</p></div>
+            <div class="pv4"><p></p></div>
           </div>
         </div>
       </div>

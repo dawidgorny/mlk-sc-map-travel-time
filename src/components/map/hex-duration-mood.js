@@ -11,6 +11,11 @@ export default function hexDurationMood (mode, duration) {
     level1 = (17 + parkTime) * 60;
     level2 = (23 + parkTime) * 60;
     level3 = (30 + parkTime) * 60;
+  } else if (mode === 'diff') {
+    level0 = -1;
+    level1 = (17 + parkTime) * 60;
+    level2 = (23 + parkTime) * 60;
+    level3 = (30 + parkTime) * 60;
   }
 
   let mood = 0;
