@@ -235,6 +235,7 @@ export default class Map extends Component {
           d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
         });
         this.assets[`destinations-data/${placeId}-driving.json`].features.forEach((d) => {
+          d['tooltip_enabled'] = d['duration_value'] > -1;
           d['duration_text'] = d['duration_text'].toString();
           d.color = hexColor('driving', d['duration_value']);
           d['duration_mood'] = d['duration_value'] < 0 ? transparentColor : hexDurationMood('transit', d['duration_value']);
