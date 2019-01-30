@@ -43,10 +43,10 @@ export default class TooltipSwitch extends Component {
     const transl = this.state.translation;
 
     let ico = '';
-    if (l.durationMood > 0) ico = IcoMood1Image;
-    if (l.durationMood > 1) ico = IcoMood2Image;
-    if (l.durationMood > 2) ico = IcoMood3Image;
-    if (l.durationMood > 3) ico = IcoMood4Image;
+    if (l.durationMood > -1) ico = IcoMood1Image;
+    if (l.durationMood > 0) ico = IcoMood2Image;
+    if (l.durationMood > 1) ico = IcoMood3Image;
+    if (l.durationMood > 2) ico = IcoMood4Image;
 
     return html`
     <div class="pt3 pb3 pl2 pr3 ${l.visible ? '' : 'dn'} tooltip-body ${sl['tooltip']}">

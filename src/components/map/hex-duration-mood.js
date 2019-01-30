@@ -1,40 +1,28 @@
-const parkTime = -7;
+import { range } from '@thi.ng/iterators';
+
+function findBin (bins, value, right = false) {
+  function incLeftEdge (l, v, r) {
+    return l <= v && v < r;
+  }
+  function incRightEdge (l, v, r) {
+    return l < v && v <= r;
+  }
+  let inBin = right ? incRightEdge : incLeftEdge;
+  let ret = [...range(bins.length - 1)].map(() => false);
+  for (let i = 0; i < bins.length - 1; i++) {
+    ret[i] = inBin(bins[i], value, bins[i + 1]);
+  }
+  return ret.indexOf(true);
+}
 
 export default function hexDurationMood (mode, duration) {
-  let level0 = -1;
-  let level1 = 17 * 60;
-  let level2 = 37 * 60;
-  let level3 = 58 * 60;
-
+  let bins = [ Number.MIN_SAFE_INTEGER, 17 * 60, 37 * 60, 58 * 60, Number.MAX_SAFE_INTEGER ];
   if (mode === 'driving') {
-    level0 = -1;
-    level1 = (17 + parkTime) * 60;
-    level2 = (23 + parkTime) * 60;
-    level3 = (30 + parkTime) * 60;
+    bins = bins = [ Number.MIN_SAFE_INTEGER, 16 * 60, 22 * 60, 30 * 60, Number.MAX_SAFE_INTEGER ];
+    //  [ '<= 16 min', '16 - 22 min', '23 - 30 min', '> 30 min' ];
   } else if (mode === 'diff') {
-    level0 = -1;
-    level1 = (17 + parkTime) * 60;
-    level2 = (23 + parkTime) * 60;
-    level3 = (30 + parkTime) * 60;
+    bins = bins = [ Number.MIN_SAFE_INTEGER, 16 * 60, 22 * 60, 30 * 60, Number.MAX_SAFE_INTEGER ];
+    //  [ '<= 16 min', '16 - 22 min', '23 - 30 min', '> 30 min' ];
   }
-
-  let mood = 0;
-
-  if (duration > level0) {
-    mood = 1;
-  }
-
-  if (duration > level1) {
-    mood = 2;
-  }
-
-  if (duration > level2) {
-    mood = 3;
-  }
-
-  if (duration > level3) {
-    mood = 4;
-  }
-
-  return mood;
+  return findBin(bins, duration, true);
 }

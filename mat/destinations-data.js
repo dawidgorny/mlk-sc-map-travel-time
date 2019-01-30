@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const parkTime = 7;
+
 let destinations = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/destinations.geojson`))).features.map((f) => f.properties);
 
 function mapProp (f) {
@@ -22,8 +24,6 @@ function getStats (features, mode) {
   let stat3num = 0;
   let stat4num = 0;
 
-  const parkTime = -7;
-
   let level0 = -1;
   let level1 = 17 * 60;
   let level2 = 37 * 60;
@@ -31,9 +31,9 @@ function getStats (features, mode) {
 
   if (mode === 'driving') {
     level0 = -1;
-    level1 = (17 + parkTime) * 60;
-    level2 = (23 + parkTime) * 60;
-    level3 = (30 + parkTime) * 60;
+    level1 = (17 - parkTime) * 60;
+    level2 = (23 - parkTime) * 60;
+    level3 = (30 - parkTime) * 60;
   }
 
   features.forEach((f) => {
@@ -90,7 +90,8 @@ for (let i = 0; i < destinations.length; i++) {
   };
   outDriving = {
     properties: {
-      stats: getStats(contentDriving.features, 'driving')
+      stats: getStats(contentDriving.features, 'driving'),
+      parkingTimeIncluded: parkTime
     },
     features: outDriving
   };
