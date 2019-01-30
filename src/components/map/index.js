@@ -209,7 +209,7 @@ export default class Map extends Component {
         this.assets[`destinations-data/${placeId}-diff.json`].features.forEach((d, i) => {
           const transitDuration = d['duration_value'];
           const drivingDuration = this.assets[`destinations-data/${placeId}-driving.json`].features[i]['duration_value'];
-          const durationDiff = drivingDuration - transitDuration;
+          const durationDiff = transitDuration - drivingDuration;
           d['duration_value'] = durationDiff;
           d['duration_text'] = `${Math.round(durationDiff / 60)} min`;
           d['transit_duration_value'] = transitDuration;
