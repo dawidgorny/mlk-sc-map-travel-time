@@ -10,7 +10,7 @@ import IcoMood2Image from '../../images/ico-mood-2.svg';
 import IcoMood3Image from '../../images/ico-mood-3.svg';
 import IcoMood4Image from '../../images/ico-mood-4.svg';
 
-export default class Tooltip extends Component {
+export default class TooltipDiff extends Component {
   constructor (id, state, emit) {
     super(id, state, emit);
     this.id = id;
@@ -25,6 +25,8 @@ export default class Tooltip extends Component {
       addressCount: 0,
       durationValue: 0,
       durationText: '',
+      transitDurationText: '',
+      drivingDurationText: '',
       durationMood: 0
     }, state.components && state.components[id] ? state.components[id] : {}]);
     style.use();
@@ -49,12 +51,24 @@ export default class Tooltip extends Component {
     if (l.durationMood > 1) ico = IcoMood3Image;
     if (l.durationMood > 2) ico = IcoMood4Image;
 
+    function formatTimeText (txt) {
+      return txt.toString().replace('hour', 'h').replace('mins', 'min').replace('-', '');
+    }
+
+    let info = ``;
+    if (l.durationValue === 0) {
+      info = `Identyczny czas przejazdu komunikacją publiczną i samochodem (${formatTimeText(l.transitDurationText)})`;
+    } else if (l.durationValue > 0) {
+      info = `O <strong>${formatTimeText(l.durationText)} wolniej</strong> komunikacją publiczną (${formatTimeText(l.transitDurationText)}) niż samochodem (${formatTimeText(l.drivingDurationText)})`;
+    } else {
+      info = `O <strong>${formatTimeText(l.durationText)} szybciej</strong> komunikacja publiczna (${formatTimeText(l.transitDurationText)}) niż samochodem (${formatTimeText(l.drivingDurationText)})`;
+    }
+
     return html`
     <div class="pt3 pb3 pl2 pr3 ${l.enabled && l.visible ? '' : 'dn'} tooltip-body ${sl['tooltip']}">
       <p class="w-100 bb pb1 ma0" style="border-color: #10069F;">${transl['tooltip.districtLabel'] || ''}<strong>${l.districtName}</strong></p>
       <div class="mv2">
-        <p class="pa0 ma0">${transl['tooltip.addressCountLabel'] || 'adresy w tym obszarze: '}<strong>${l.addressCount}</strong></p>
-        <p class="pa0 ma0 fl">${transl['tooltip.durationLabel'] || 'czas dojazdu: '}<strong>${l.durationText.replace('hour', 'h').replace('mins', 'min')}</strong></p><img class="ph1 fl ${sl['ico-mood']}" src=${l['assetsPathPrefix'] + ico}>
+        <p class="pa0 ma0">${raw(info)}</p>
       </div>
     </div>`;
   }

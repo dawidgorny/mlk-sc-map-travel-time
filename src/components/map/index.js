@@ -199,6 +199,7 @@ export default class Map extends Component {
   }
 
   _prepareData (assets) {
+    const transparentColor = 'rgba(255, 255, 255, 0.0)';
     /**
      * Process data files and calculate layer colors etc.
      */
@@ -210,13 +211,14 @@ export default class Map extends Component {
           const transitDuration = d['duration_value'];
           const drivingDuration = this.assets[`destinations-data/${placeId}-driving.json`].features[i]['duration_value'];
           const durationDiff = transitDuration - drivingDuration;
+          d['transit_duration_text'] = d['duration_text'].toString();
           d['duration_value'] = durationDiff;
           d['duration_text'] = `${Math.round(durationDiff / 60)} min`;
           d['transit_duration_value'] = transitDuration;
           d['driving_duration_value'] = drivingDuration;
-          d['transit_duration_text'] = d['duration_text'];
           d['driving_duration_text'] = this.assets[`destinations-data/${placeId}-driving.json`].features[i]['duration_text'];
-          d.color = hexColor('diff', d['duration_value']);
+          d['tooltip_enabled'] = d['transit_duration_value'] > -1 && d['driving_duration_value'] > -1;
+          d.color = d['tooltip_enabled'] ? hexColor('diff', d['duration_value']) : transparentColor;
           d['duration_mood'] = hexDurationMood('diff', d['duration_value']);
         });
       });
@@ -227,12 +229,15 @@ export default class Map extends Component {
       this.assets['destinations.geojson'].features.forEach((f) => {
         const placeId = f.properties['place-id'];
         this.assets[`destinations-data/${placeId}-transit.json`].features.forEach((d) => {
-          d.color = hexColor('transit', d['duration_value']);
+          d['tooltip_enabled'] = d['duration_value'] > -1;
+          d['duration_text'] = d['duration_text'].toString();
+          d.color = d['tooltip_enabled'] ? hexColor('transit', d['duration_value']) : transparentColor;
           d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
         });
         this.assets[`destinations-data/${placeId}-driving.json`].features.forEach((d) => {
+          d['duration_text'] = d['duration_text'].toString();
           d.color = hexColor('driving', d['duration_value']);
-          d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
+          d['duration_mood'] = d['duration_value'] < 0 ? transparentColor : hexDurationMood('transit', d['duration_value']);
         });
       });
     }
@@ -270,9 +275,14 @@ export default class Map extends Component {
       const d = data[i];
       const prop = f.properties;
       prop['color'] = d.color;
+      prop['tooltip_enabled'] = d['tooltip_enabled'];
       prop['duration_value'] = d['duration_value'];
       prop['duration_text'] = d['duration_text'];
       prop['duration_mood'] = d['duration_mood'];
+      prop['transit_duration_value'] = d['transit_duration_value'];
+      prop['driving_duration_value'] = d['driving_duration_value'];
+      prop['transit_duration_text'] = d['transit_duration_text'];
+      prop['driving_duration_text'] = d['driving_duration_text'];
 
       if (this._isFeatureSelected && this._isFeatureSelected.properties['cell-id'] === f.properties['cell-id']) {
         this._isFeatureSelected = f;

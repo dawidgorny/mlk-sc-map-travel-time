@@ -4,6 +4,7 @@ import Dropdown from '../components/dropdown';
 import AddressSearch from '../components/address-search';
 import ModeSwitch from '../components/mode-switch';
 import Tooltip from '../components/tooltip';
+import TooltipDiff from '../components/tooltip-diff';
 import LoadingOverlay from '../components/loading-overlay';
 import Legend from '../components/legend';
 
@@ -30,6 +31,7 @@ export default function mainView (state, emit) {
         </div>
         <div class="${sl['tooltip-container']} ${lspfx}__tooltip-container" style="padding-bottom:130px;">
           ${this.state.cache(Tooltip, 'tooltip').render()}
+          ${this.state.cache(TooltipDiff, 'tooltip-diff').render()}
         </div>
         ${this.state.cache(LoadingOverlay, 'loading-overlay').render()}
       </div>

@@ -65,19 +65,23 @@ export default function mainStore (state, emitter) {
 
   function mapFeatureClick (feature) {
     const prop = feature.properties;
-    const tooltip = state.components['tooltip'];
+    const tooltip = state.components['tooltip'].enabled ? state.components['tooltip'] : state.components['tooltip-diff'];
     state.components['address-search'].visible = false;
-    tooltip.visible = true;
+    tooltip.visible = prop['tooltip_enabled'];
     tooltip.districtName = prop['district_full_text'];
     tooltip.addressCount = prop['address_count'];
     tooltip.durationValue = prop['duration_value'];
     tooltip.durationText = prop['duration_text'];
+    tooltip.transitDurationText = prop['transit_duration_text'];
+    tooltip.drivingDurationText = prop['driving_duration_text'];
     tooltip.durationMood = prop['duration_mood'];
+    console.log(prop)
     render();
   }
 
   function mapFeatureDeselect () {
     state.components['tooltip'].visible = false;
+    state.components['tooltip-diff'].visible = false;
     state.components['address-search'].visible = true;
     state.components['map'].hilightCoordinates = null;
     render();

@@ -1,0 +1,19 @@
+:local .tooltip {
+  background-color: rgba(225,225,225,0.9);
+  /* z-index: 2; */
+  /* width: 320px; */
+  font-size: 10pt;
+  color: #10069F;
+
+  p {
+    font-size: 10pt;
+    line-height: 1.5;
+  }
+}
+:local .active {
+  
+}
+
+:local .ico-mood {
+  margin-top: 2px;
+}

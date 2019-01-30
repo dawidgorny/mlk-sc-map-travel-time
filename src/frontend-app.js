@@ -41,7 +41,12 @@ export default class FrontentApp {
         enabled: options.mode !== 'diff'
       };
       state.components['tooltip'] = {
-        assetsPathPrefix
+        assetsPathPrefix,
+        enabled: options.mode !== 'diff'
+      };
+      state.components['tooltip-diff'] = {
+        assetsPathPrefix,
+        enabled: options.mode === 'diff'
       };
     });
     this.app.route('*', mainView);
