@@ -1,5 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const findBin = require('../src/utils/find-bin');
+const durationMood = require('../src/components/map/hex-duration-mood');
+
+const parkTime = 7;
 
 let destinations = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/destinations.geojson`))).features.map((f) => f.properties);
 
@@ -22,30 +26,19 @@ function getStats (features, mode) {
   let stat3num = 0;
   let stat4num = 0;
 
-  const parkTime = -7;
-
-  let level0 = -1;
-  let level1 = 17 * 60;
-  let level2 = 37 * 60;
-  let level3 = 58 * 60;
-
-  if (mode === 'driving') {
-    level0 = -1;
-    level1 = (17 + parkTime) * 60;
-    level2 = (23 + parkTime) * 60;
-    level3 = (30 + parkTime) * 60;
-  }
-
   features.forEach((f) => {
-    let duration = f['properties']['duration_value'];
-    if (duration > level3) {
-      stat4num++;
-    } else if (duration > level2) {
-      stat3num++;
-    } else if (duration > level1) {
-      stat2num++;
-    } else if (duration > level0) {
-      stat1num++;
+    let duration = f['duration_value'];
+    if (duration > -1) {
+      let mood = durationMood(mode, duration);
+      if (mood === 3) {
+        stat4num++;
+      } else if (mood === 2) {
+        stat3num++;
+      } else if (mood === 1) {
+        stat2num++;
+      } else if (mood === 0) {
+        stat1num++;
+      }
     }
   });
 
@@ -78,19 +71,28 @@ for (let i = 0; i < destinations.length; i++) {
 
   let contentTransit = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/hexgrid-${i}.geojson`)));
   let contentDriving = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/hexgrid-${i}-driving.geojson`)));
+
+  contentDriving.features.forEach((f) => {
+    let v = f['properties']['duration_value'];
+    v = v > -1 ? v + parkTime * 60 : v;
+    let h = Math.floor(v / (60 * 60));
+    let m = Math.round((v - (h * 60 * 60)) / 60);
+    f['properties']['duration_value'] = v;
+    f['properties']['duration_text'] = h > 0 ? `${h} h ${m} min` : `${m} min`;
+  });
   
   let outTransit = contentTransit.features.map(mapProp);
   let outDriving = contentDriving.features.map(mapProp);
 
   outTransit = {
     properties: {
-      stats: getStats(contentTransit.features, 'transit')
+      stats: getStats(outTransit, 'transit')
     },
     features: outTransit
   };
   outDriving = {
     properties: {
-      stats: getStats(contentDriving.features, 'driving')
+      stats: getStats(outDriving, 'driving')
     },
     features: outDriving
   };
