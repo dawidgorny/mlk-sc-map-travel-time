@@ -1,12 +1,8 @@
 import { range } from '@thi.ng/iterators';
 
 function findBin (bins, value, right = false) {
-  function incLeftEdge (l, v, r) {
-    return l <= v && v < r;
-  }
-  function incRightEdge (l, v, r) {
-    return l < v && v <= r;
-  }
+  const incLeftEdge = (l, v, r) => l <= v && v < r;
+  const incRightEdge = (l, v, r) => l < v && v <= r;
   let inBin = right ? incRightEdge : incLeftEdge;
   let ret = [...range(bins.length - 1)].map(() => false);
   for (let i = 0; i < bins.length - 1; i++) {
