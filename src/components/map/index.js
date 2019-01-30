@@ -209,10 +209,13 @@ export default class Map extends Component {
         this.assets[`destinations-data/${placeId}-diff.json`].features.forEach((d, i) => {
           const transitDuration = d['duration_value'];
           const drivingDuration = this.assets[`destinations-data/${placeId}-driving.json`].features[i]['duration_value'];
-          const durationDiff = transitDuration - drivingDuration;
+          const durationDiff = drivingDuration - transitDuration;
           d['duration_value'] = durationDiff;
+          d['duration_text'] = `${Math.round(durationDiff / 60)} min`;
           d['transit_duration_value'] = transitDuration;
           d['driving_duration_value'] = drivingDuration;
+          d['transit_duration_text'] = d['duration_text'];
+          d['driving_duration_text'] = this.assets[`destinations-data/${placeId}-driving.json`].features[i]['duration_text'];
           d.color = hexColor('diff', d['duration_value']);
           d['duration_mood'] = hexDurationMood('diff', d['duration_value']);
         });
