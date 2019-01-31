@@ -17,7 +17,10 @@ const pl = {
   },
   'tooltip.districtLabel': '',
   'tooltip.addressCountLabel': 'adresy w tym obszarze: ',
-  'tooltip.durationLabel': 'czas dojazdu: '
+  'tooltip.durationLabel': 'czas dojazdu: ',
+  'tooltip.diffDescriptionEqual': 'Identyczny czas przejazdu komunikacją publiczną i samochodem (__transitDurationText__)',
+  'tooltip.diffDescriptionFasterTransit': 'O <strong>__durationText__ szybciej</strong> komunikacja publiczna (__transitDurationText__) niż samochodem (__drivingDurationText__)',
+  'tooltip.diffDescriptionSlowerTransit': 'O <strong>__durationText__ wolniej</strong> komunikacją publiczną (__transitDurationText__) niż samochodem (__drivingDurationText__)'
 };
 
 const en = {
@@ -39,7 +42,10 @@ const en = {
   },
   'tooltip.districtLabel': 'District: ',
   'tooltip.addressCountLabel': 'address points: ',
-  'tooltip.durationLabel': 'travel time: '
+  'tooltip.durationLabel': 'travel time: ',
+  'tooltip.diffDescriptionEqual': 'Equal travel time for public transportation and driving (__transitDurationText__)',
+  'tooltip.diffDescriptionFasterTransit': 'For <strong>__durationText__ faster</strong> with public transportation (__transitDurationText__) than driving (__drivingDurationText__)',
+  'tooltip.diffDescriptionSlowerTransit': 'For <strong>__durationText__ slower</strong> with public transportation (__transitDurationText__) than driving (__drivingDurationText__)'
 };
 
 module.exports = { pl, en };

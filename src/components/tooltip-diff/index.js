@@ -57,12 +57,16 @@ export default class TooltipDiff extends Component {
 
     let info = ``;
     if (l.durationValue === 0) {
-      info = `Identyczny czas przejazdu komunikacją publiczną i samochodem (${formatTimeText(l.transitDurationText)})`;
+      info = transl['tooltip.diffDescriptionEqual'] || `Identyczny czas przejazdu komunikacją publiczną i samochodem (__transitDurationText__)`;
     } else if (l.durationValue > 0) {
-      info = `O <strong>${formatTimeText(l.durationText)} wolniej</strong> komunikacją publiczną (${formatTimeText(l.transitDurationText)}) niż samochodem (${formatTimeText(l.drivingDurationText)})`;
+      info = transl['tooltip.diffDescriptionSlowerTransit'] || `O <strong>__durationText__ wolniej</strong> komunikacją publiczną (__transitDurationText__) niż samochodem (__drivingDurationText__)`;
     } else {
-      info = `O <strong>${formatTimeText(l.durationText)} szybciej</strong> komunikacja publiczna (${formatTimeText(l.transitDurationText)}) niż samochodem (${formatTimeText(l.drivingDurationText)})`;
+      info = transl['tooltip.diffDescriptionFasterTransit'] || `O <strong>__durationText__ szybciej</strong> komunikacja publiczna (__transitDurationText__) niż samochodem (__drivingDurationText__)`;
     }
+
+    info = info.replace('__durationText__', formatTimeText(l.durationText));
+    info = info.replace('__transitDurationText__', formatTimeText(l.transitDurationText));
+    info = info.replace('__drivingDurationText__', formatTimeText(l.drivingDurationText));
 
     return html`
     <div class="pt3 pb3 pl2 pr3 ${l.enabled && l.visible ? '' : 'dn'} tooltip-body ${sl['tooltip']}">
