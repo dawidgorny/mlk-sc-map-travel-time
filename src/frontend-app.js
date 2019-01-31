@@ -6,7 +6,7 @@ import styles from './app.css';
 styles.use();
 
 export default class FrontentApp {
-  constructor (mapContainer, mapStyle, mapboxAccessToken, translation, assetsPathPrefix, options = { mode: 'transit' }) {
+  constructor (mapContainer, mapStyle, mapboxAccessToken, translation, assetsPathPrefix, options = { mode: 'transit', searchEnabled: true }) {
     this.mapContainer = mapContainer;
     this.app = choo();
     if (process.env.NODE_ENV !== 'production') {
@@ -22,6 +22,7 @@ export default class FrontentApp {
         mode: options.mode
       };
       state.components['address-search'] = {
+        enabled: options.searchEnabled,
         assetsPathPrefix,
         mapboxAccessToken
       };

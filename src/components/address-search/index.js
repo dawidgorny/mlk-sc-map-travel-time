@@ -24,6 +24,7 @@ export default class AddressSearch extends Component {
     this.emit = emit;
     this.isDirty = false;
     this.local = state.components[id] = merge([{
+      enabled: true,
       assetsPathPrefix: '',
       visible: false,
       text: '',
@@ -101,7 +102,7 @@ export default class AddressSearch extends Component {
     };
 
     return html`
-    <div class="absolute top-0 left-0 pt3 pb1 pr3 ${sl['address-search']} ${l.visible ? '' : 'dn'}" style="">
+    <div class="absolute top-0 left-0 pt3 pb1 pr3 ${sl['address-search']} ${l.enabled && l.visible ? '' : 'dn'}" style="">
       <p class="w-100 bb pb1 ma0 ${sl['input-field-container']}" style="border-color: #10069F;background-image:url(${l['assetsPathPrefix'] + IcoSearchImage})">
         <input class="input-reset ${sl['input-field']}" autocomplete="off" tabindex="0" value="${l.text}">
       </p>
