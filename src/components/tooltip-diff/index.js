@@ -52,7 +52,8 @@ export default class TooltipDiff extends Component {
     if (l.durationMood > 2) ico = IcoMood4Image;
 
     function formatTimeText (txt) {
-      return txt.toString().replace('hour', 'h').replace('mins', 'min').replace('-', '');
+        let _txt = txt.replace(' ', '&nbsp;');
+        return _txt.toString().replace('hour', 'h').replace('mins', 'min').replace('-', '');
     }
 
     let info = ``;
