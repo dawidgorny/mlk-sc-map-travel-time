@@ -68,9 +68,10 @@ function getStats (features, mode) {
 
 for (let i = 0; i < destinations.length; i++) {
   let placeId = destinations[i]['place-id'];
+  let hexgridId = parseInt(destinations[i]['layer_id'].replace('hexgrid-', ''));
 
-  let contentTransit = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/hexgrid-${i}.geojson`)));
-  let contentDriving = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/hexgrid-${i}-driving.geojson`)));
+  let contentTransit = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/hexgrid-${hexgridId}.geojson`)));
+  let contentDriving = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/hexgrid-${hexgridId}-driving.geojson`)));
 
   contentDriving.features.forEach((f) => {
     let v = f['properties']['duration_value'];
