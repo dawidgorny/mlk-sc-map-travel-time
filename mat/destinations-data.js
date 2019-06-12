@@ -12,6 +12,7 @@ function mapProp (f) {
     'cell-id': f.properties['cell-id'],
     'duration_text': f.properties['duration_text'],
     'duration_value': f.properties['duration_value'],
+    'duration_value_minutes': f.properties['duration_value_minutes'],
     'distance_text': f.properties['distance_text'],
     'distance_value': f.properties['distance_value']
   };
@@ -73,12 +74,20 @@ for (let i = 0; i < destinations.length; i++) {
   let contentTransit = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/hexgrid-${hexgridId}.geojson`)));
   let contentDriving = JSON.parse(fs.readFileSync(path.join(__dirname, `source/destinations_hexgrid-addresses_distance/hexgrid-${hexgridId}-driving.geojson`)));
 
+  contentTransit.features.forEach((f) => {
+    let v = f['properties']['duration_value'];
+    let h = Math.floor(v / (60 * 60));
+    let m = Math.round((v - (h * 60 * 60)) / 60);
+    f['properties']['duration_value_minutes'] = m + h * 60;
+  });
+
   contentDriving.features.forEach((f) => {
     let v = f['properties']['duration_value'];
     v = v > -1 ? v + parkTime * 60 : v;
     let h = Math.floor(v / (60 * 60));
     let m = Math.round((v - (h * 60 * 60)) / 60);
     f['properties']['duration_value'] = v;
+    f['properties']['duration_value_minutes'] = m + h * 60;
     f['properties']['duration_text'] = h > 0 ? `${h} h ${m} min` : `${m} min`;
   });
   

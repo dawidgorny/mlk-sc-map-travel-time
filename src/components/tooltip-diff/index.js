@@ -56,7 +56,7 @@ export default class TooltipDiff extends Component {
     }
 
     let info = ``;
-    if (l.durationValue === 0) {
+    if (l.durationMood === 1) {
       info = transl['tooltip.diffDescriptionEqual'] || `Identyczny czas przejazdu komunikacją publiczną i samochodem (__transitDurationText__)`;
     } else if (l.durationValue > 0) {
       info = transl['tooltip.diffDescriptionSlowerTransit'] || `O <strong>__durationText__ wolniej</strong> komunikacją publiczną (__transitDurationText__) niż samochodem (__drivingDurationText__)`;

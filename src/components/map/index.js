@@ -210,16 +210,22 @@ export default class Map extends Component {
         this.assets[`destinations-data/${placeId}-diff.json`].features.forEach((d, i) => {
           const transitDuration = d['duration_value'];
           const drivingDuration = this.assets[`destinations-data/${placeId}-driving.json`].features[i]['duration_value'];
-          const durationDiff = transitDuration - drivingDuration;
+          const transitDurationMinutes = d['duration_value_minutes'];
+          const drivingDurationMinutes = this.assets[`destinations-data/${placeId}-driving.json`].features[i]['duration_value_minutes'];
+          const durationDiffMinutes = transitDurationMinutes - drivingDurationMinutes;
+          const durationDiff = durationDiffMinutes * 60;
           d['transit_duration_text'] = d['duration_text'].toString();
           d['duration_value'] = durationDiff;
-          d['duration_text'] = `${Math.round(durationDiff / 60)} min`;
+          d['duration_value_minutes'] = durationDiffMinutes;
+          d['duration_text'] = `${durationDiffMinutes} min`;
           d['transit_duration_value'] = transitDuration;
           d['driving_duration_value'] = drivingDuration;
+          d['transit_duration_value_minutes'] = transitDurationMinutes;
+          d['driving_duration_value_minutes'] = drivingDurationMinutes;
           d['driving_duration_text'] = this.assets[`destinations-data/${placeId}-driving.json`].features[i]['duration_text'];
           d['tooltip_enabled'] = d['transit_duration_value'] > -1 && d['driving_duration_value'] > -1;
-          d.color = d['tooltip_enabled'] ? hexColor('diff', d['duration_value']) : transparentColor;
-          d['duration_mood'] = hexDurationMood('diff', d['duration_value']);
+          d.color = d['tooltip_enabled'] ? hexColor('diff', d['duration_value_minutes']) : transparentColor;
+          d['duration_mood'] = hexDurationMood('diff', d['duration_value_minutes']);
         });
       });
     } else {
@@ -231,14 +237,14 @@ export default class Map extends Component {
         this.assets[`destinations-data/${placeId}-transit.json`].features.forEach((d) => {
           d['tooltip_enabled'] = d['duration_value'] > -1;
           d['duration_text'] = d['duration_text'].toString();
-          d.color = d['tooltip_enabled'] ? hexColor('transit', d['duration_value']) : transparentColor;
-          d['duration_mood'] = hexDurationMood('transit', d['duration_value']);
+          d.color = d['tooltip_enabled'] ? hexColor('transit', d['duration_value_minutes']) : transparentColor;
+          d['duration_mood'] = hexDurationMood('transit', d['duration_value_minutes']);
         });
         this.assets[`destinations-data/${placeId}-driving.json`].features.forEach((d) => {
           d['tooltip_enabled'] = d['duration_value'] > -1;
           d['duration_text'] = d['duration_text'].toString();
-          d.color = hexColor('driving', d['duration_value']);
-          d['duration_mood'] = d['duration_value'] < 0 ? transparentColor : hexDurationMood('transit', d['duration_value']);
+          d.color = hexColor('driving', d['duration_value_minutes']);
+          d['duration_mood'] = d['duration_value'] < 0 ? transparentColor : hexDurationMood('transit', d['duration_value_minutes']);
         });
       });
     }
