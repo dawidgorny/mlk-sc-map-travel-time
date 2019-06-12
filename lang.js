@@ -19,8 +19,8 @@ const pl = {
   'tooltip.addressCountLabel': 'adresy w tym obszarze: ',
   'tooltip.durationLabel': 'czas dojazdu: ',
   'tooltip.diffDescriptionEqual': 'Identyczny czas przejazdu komunikacją publiczną i samochodem (__transitDurationText__)',
-  'tooltip.diffDescriptionFasterTransit': 'O <strong>__durationText__ szybciej</strong> komunikacja publiczna (__transitDurationText__) niż samochodem (__drivingDurationText__)',
-  'tooltip.diffDescriptionSlowerTransit': 'O <strong>__durationText__ wolniej</strong> komunikacją publiczną (__transitDurationText__) niż samochodem (__drivingDurationText__)'
+  'tooltip.diffDescriptionFasterTransit': '<strong>__durationText__ szybciej</strong> komunikacja publiczna (__transitDurationText__) niż samochodem (__drivingDurationText__)',
+  'tooltip.diffDescriptionSlowerTransit': '<strong>__durationText__ wolniej</strong> komunikacją publiczną (__transitDurationText__) niż samochodem (__drivingDurationText__)'
 };
 
 const en = {
