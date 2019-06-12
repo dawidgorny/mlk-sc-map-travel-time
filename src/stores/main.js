@@ -1,5 +1,6 @@
 import centroid from '@turf/centroid';
 import bbox from '@turf/bbox';
+import hexDurationMood from '../components/map/hex-duration-mood';
 
 export default function mainStore (state, emitter) {
   state.translation = {};
@@ -76,8 +77,7 @@ export default function mainStore (state, emitter) {
     tooltip.durationText = prop['duration_text'];
     tooltip.transitDurationText = prop['transit_duration_text'];
     tooltip.drivingDurationText = prop['driving_duration_text'];
-    tooltip.durationMood = prop['duration_mood'];
-    console.log(prop)
+    tooltip.durationMood = hexDurationMood(state.components['map'].mode, prop['duration_value_minutes']);
     render();
   }
 

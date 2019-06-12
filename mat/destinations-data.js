@@ -28,7 +28,7 @@ function getStats (features, mode) {
   let stat4num = 0;
 
   features.forEach((f) => {
-    let duration = f['duration_value'];
+    let duration = f['duration_value_minutes'];
     if (duration > -1) {
       let mood = durationMood(mode, duration);
       if (mood === 3) {
@@ -86,8 +86,8 @@ for (let i = 0; i < destinations.length; i++) {
     v = v > -1 ? v + parkTime * 60 : v;
     let h = Math.floor(v / (60 * 60));
     let m = Math.round((v - (h * 60 * 60)) / 60);
-    f['properties']['duration_value'] = v;
     f['properties']['duration_value_minutes'] = m + h * 60;
+    f['properties']['duration_value'] = f['properties']['duration_value_minutes'] * 60;
     f['properties']['duration_text'] = h > 0 ? `${h} h ${m} min` : `${m} min`;
   });
   

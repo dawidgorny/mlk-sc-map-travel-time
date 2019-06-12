@@ -226,6 +226,7 @@ export default class Map extends Component {
           d['tooltip_enabled'] = d['transit_duration_value'] > -1 && d['driving_duration_value'] > -1;
           d.color = d['tooltip_enabled'] ? hexColor('diff', d['duration_value_minutes']) : transparentColor;
           d['duration_mood'] = hexDurationMood('diff', d['duration_value_minutes']);
+          d['duration_mood'] = d['duration_mood'];
         });
       });
     } else {
@@ -239,12 +240,14 @@ export default class Map extends Component {
           d['duration_text'] = d['duration_text'].toString();
           d.color = d['tooltip_enabled'] ? hexColor('transit', d['duration_value_minutes']) : transparentColor;
           d['duration_mood'] = hexDurationMood('transit', d['duration_value_minutes']);
+          d['duration_mood'] = d['duration_mood'];
         });
         this.assets[`destinations-data/${placeId}-driving.json`].features.forEach((d) => {
           d['tooltip_enabled'] = d['duration_value'] > -1;
           d['duration_text'] = d['duration_text'].toString();
           d.color = hexColor('driving', d['duration_value_minutes']);
           d['duration_mood'] = d['duration_value'] < 0 ? transparentColor : hexDurationMood('transit', d['duration_value_minutes']);
+          d['duration_mood'] = d['duration_mood'];
         });
       });
     }
@@ -284,6 +287,7 @@ export default class Map extends Component {
       prop['color'] = d.color;
       prop['tooltip_enabled'] = d['tooltip_enabled'];
       prop['duration_value'] = d['duration_value'];
+      prop['duration_value_minutes'] = d['duration_value_minutes'];
       prop['duration_text'] = d['duration_text'];
       prop['duration_mood'] = d['duration_mood'];
       prop['transit_duration_value'] = d['transit_duration_value'];
