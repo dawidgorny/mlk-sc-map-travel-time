@@ -40,12 +40,12 @@ const en = {
     '334195793031': 'Culture Zone',
     '119773141689786': 'Trzy Stawy Park'
   },
-  'tooltip.districtLabel': 'District: ',
+  'tooltip.districtLabel': 'district: ',
   'tooltip.addressCountLabel': 'address points: ',
   'tooltip.durationLabel': 'travel time: ',
-  'tooltip.diffDescriptionEqual': 'Equal travel time for public transportation and driving (__transitDurationText__)',
-  'tooltip.diffDescriptionFasterTransit': 'For <strong>__durationText__ faster</strong> with public transportation (__transitDurationText__) than driving (__drivingDurationText__)',
-  'tooltip.diffDescriptionSlowerTransit': 'For <strong>__durationText__ slower</strong> with public transportation (__transitDurationText__) than driving (__drivingDurationText__)'
+  'tooltip.diffDescriptionEqual': 'identical journey time by public transport and by car (__transitDurationText__)',
+  'tooltip.diffDescriptionFasterTransit': '<strong>__durationText__ faster</strong> by public transport (__transitDurationText__) than by car (__drivingDurationText__)',
+  'tooltip.diffDescriptionSlowerTransit': '<strong>__durationText__ slower</strong> by public transport (__transitDurationText__) than by car (__drivingDurationText__)'
 };
 
 module.exports = { pl, en };
