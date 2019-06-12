@@ -48,7 +48,7 @@
             </div>
             <script type="text/javascript">
               const mapContainer1 = '#map1';
-              const map1 = travelTimeMap.create(mapContainer1, mapStyle, mapboxAccessToken, travelTimeMap.lang['pl'], asstetsPathPrefix, { mode: 'diff', searchEnabled: false });
+              const map1 = travelTimeMap.create(mapContainer1, mapStyle, mapboxAccessToken, travelTimeMap.lang['pl'], asstetsPathPrefix, { mode: 'diff', searchEnabled: false, initialDestinationIdx: 6 });
             </script>
 
 <!-- END EMBED -->
@@ -70,7 +70,7 @@
             </div>
             <script type="text/javascript">
               const mapContainer2 = '#map2';
-              const map2 = travelTimeMap.create(mapContainer2, mapStyle, mapboxAccessToken, travelTimeMap.lang['pl'], asstetsPathPrefix, { mode: 'transit', initialDestinationIdx: 6 });
+              const map2 = travelTimeMap.create(mapContainer2, mapStyle, mapboxAccessToken, travelTimeMap.lang['pl'], asstetsPathPrefix, { mode: 'transit' });
             </script>
 
 
