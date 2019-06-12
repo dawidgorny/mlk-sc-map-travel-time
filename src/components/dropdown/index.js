@@ -19,6 +19,7 @@ export default class Dropdown extends Component {
       visible: false,
       text: '',
       value: '',
+      initialIdx: 0,
       items: [ /* [label, value] */ ]
     }, state.components && state.components[id] ? state.components[id] : {}]);
     style.use();
@@ -68,8 +69,8 @@ export default class Dropdown extends Component {
       let selectNode = element.querySelector('select.' + this.id + '__' + style.locals['dropdown-control']);
 
       /* to ensure first selected on chrome */
-      selectNode.selectedIndex = 0;
-      selectNode.value = this.local.items[0][1];
+      selectNode.selectedIndex = this.local.initialIdx;
+      selectNode.value = this.local.items[this.local.initialIdx][1];
       /* -- */
 
       let optionNodeList = Array.prototype.slice.call(selectNode.options);

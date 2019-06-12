@@ -25,10 +25,12 @@ export default function mainStore (state, emitter) {
   }
 
   function mapAssetsLoad (assets) {
+    let initialDestinationIdx = state.initialDestinationIdx;
     
+    state.components['destination'].initialIdx = initialDestinationIdx;
     state.components['destination'].items = state.components['map'].destinations.map((d) => [state.translation.destinations[d.id] || d.label, d.id]);
-    state.components['destination'].value = state.components['map'].destinations[0].id;
-    state.components['destination'].text = state.components['map'].destinations[0].label;
+    state.components['destination'].value = state.components['map'].destinations[initialDestinationIdx].id;
+    state.components['destination'].text = state.components['map'].destinations[initialDestinationIdx].label;
     state.components['map'].destinationId = state.components['destination'].value;
 
     const hexgridBBox = bbox(assets['hexgrid.geojson']);

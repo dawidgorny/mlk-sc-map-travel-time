@@ -6,7 +6,7 @@ import styles from './app.css';
 styles.use();
 
 export default class FrontentApp {
-  constructor (mapContainer, mapStyle, mapboxAccessToken, translation, assetsPathPrefix, options = { mode: 'transit', searchEnabled: true }) {
+  constructor (mapContainer, mapStyle, mapboxAccessToken, translation, assetsPathPrefix, options = { mode: 'transit', searchEnabled: true, initialDestinationIdx: 0 }) {
     this.mapContainer = mapContainer;
     this.app = choo();
     if (process.env.NODE_ENV !== 'production') {
@@ -15,6 +15,7 @@ export default class FrontentApp {
     this.app.use(mainStore);
     this.app.use((state, emitter) => {
       state.translation = translation;
+      state.initialDestinationIdx = !isNaN(options.initialDestinationIdx) ? parseInt(options.initialDestinationIdx) : 0;
       state.components['map'] = {
         assetsPathPrefix,
         mapboxAccessToken,
