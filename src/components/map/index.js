@@ -170,6 +170,7 @@ export default class Map extends Component {
 
     let manifestArr = this.local.destinations.map((dest) => { return { type: 'text', src: `destinations-data/${dest.id}-transit.json`, parser: JSON.parse }; });
     manifestArr = manifestArr.concat(this.local.destinations.map((dest) => { return { type: 'text', src: `destinations-data/${dest.id}-driving.json`, parser: JSON.parse }; }));
+    manifestArr = manifestArr.concat(this.local.destinations.map((dest) => { return { type: 'text', src: `destinations-data/${dest.id}-bicycle.json`, parser: JSON.parse }; }));
 
     let manifest = {};
     manifestArr.forEach((a) => {
