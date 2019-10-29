@@ -7,6 +7,7 @@ import nanostate from 'nanostate';
 
 import TramBlueImage from './tram-blue.svg';
 import CarBlueImage from './car-blue.svg';
+import BicycleBlueImage from './bicycle-blue.svg';
 
 export default class ModeSwitch extends Component {
   constructor (id, state, emit) {
@@ -51,6 +52,7 @@ export default class ModeSwitch extends Component {
 
     return html`
     <div class="fl pr0 pt3 ${style.locals['mode-switch']}"  style="${l.visible ? '' : 'visibility:hidden'}">
+      <a data-toggle-value="bicycle" class="pl0 pr0 fl ${l.value === 'bicycle' ? sl['active'] : ''}" href="#" onclick=${onClick}><img src="${l['assetsPathPrefix'] + BicycleBlueImage}" width="60" height="29"></a>
       <a data-toggle-value="transit" class="pl0 pr2 fl ${l.value === 'transit' ? sl['active'] : ''}" href="#" onclick=${onClick}><img src="${l['assetsPathPrefix'] + TramBlueImage}" width="60" height="29"></a>
       <a data-toggle-value="driving" class="pl0 pr0 fl ${l.value === 'driving' ? sl['active'] : ''}" href="#" onclick=${onClick}><img src="${l['assetsPathPrefix'] + CarBlueImage}" width="60" height="29"></a>
     </div>`;
