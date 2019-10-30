@@ -1,7 +1,7 @@
 module.exports = (assetsPathPrefix) => ({
   'hexgrid.geojson': {
     type: 'text',
-    src: assetsPathPrefix + 'hexgrid.geojson',
+    src: assetsPathPrefix + 'test.geojson',
     parser: JSON.parse
   },
   'destinations.geojson': {

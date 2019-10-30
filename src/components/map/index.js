@@ -3,6 +3,7 @@ import Component from 'choo/component';
 import resl from 'resl';
 import distance from '@turf/distance';
 import { point, polygon } from '@turf/helpers';
+import bbox from '@turf/bbox';
 import centroid from '@turf/centroid';
 import pointInPolygon from '@turf/boolean-point-in-polygon';
 import merge from '../../utils/merge';
@@ -269,10 +270,12 @@ export default class Map extends Component {
     this.map.addLayer(hexSelection, 'airport-label');
 
     this.emit('map:ready');
+
   }
 
   setDestination (mode, destinationId) {
     const dataSource = `destinations-data/${destinationId}-${mode}.json`;
+    console.log(dataSource);
     if (!this.assets[dataSource]) return;
 
     let geojson = this.assets['hexgrid.geojson'];
@@ -284,17 +287,19 @@ export default class Map extends Component {
     for (let i = 0; i < geojson.features.length; i++) {
       const f = geojson.features[i];
       const d = data[i];
-      const prop = f.properties;
-      prop['color'] = d.color;
-      prop['tooltip_enabled'] = d['tooltip_enabled'];
-      prop['duration_value'] = d['duration_value'];
-      prop['duration_value_minutes'] = d['duration_value_minutes'];
-      prop['duration_text'] = d['duration_text'];
-      prop['duration_mood'] = d['duration_mood'];
-      prop['transit_duration_value'] = d['transit_duration_value'];
-      prop['driving_duration_value'] = d['driving_duration_value'];
-      prop['transit_duration_text'] = d['transit_duration_text'];
-      prop['driving_duration_text'] = d['driving_duration_text'];
+      if (d) {
+        const prop = f.properties;
+        // prop['color'] = d.color;
+        prop['tooltip_enabled'] = d['tooltip_enabled'];
+        prop['duration_value'] = d['duration_value'];
+        prop['duration_value_minutes'] = d['duration_value_minutes'];
+        prop['duration_text'] = d['duration_text'];
+        prop['duration_mood'] = d['duration_mood'];
+        prop['transit_duration_value'] = d['transit_duration_value'];
+        prop['driving_duration_value'] = d['driving_duration_value'];
+        prop['transit_duration_text'] = d['transit_duration_text'];
+        prop['driving_duration_text'] = d['driving_duration_text'];
+      }
 
       if (this._isFeatureSelected && this._isFeatureSelected.properties['cell-id'] === f.properties['cell-id']) {
         this._isFeatureSelected = f;
